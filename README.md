@@ -34,7 +34,7 @@ journal-suggester serve --split artifacts/experiment/splits \
   --vectors artifacts/experiment/vectors --kev-run checkpoints/kev-math-epoch2
 ```
 
-Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765) on that machine, or use SSH port forwarding to access it from your laptop. Add `--port 8766` if the port is occupied. Press Ctrl+C to stop the server. Pasting text works offline, but importing arXiv metadata requires internet access.
+Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765) on that machine, or use SSH port forwarding to access it from your laptop. Pasting text works offline, but importing arXiv metadata requires internet access.
 
 The repository includes the code, records identifying which papers belong to each dataset split, and checksums for verifying the original paper records. It also includes overall results and each method's predictions for individual test papers, so the reported accuracy can be checked without rerunning the models.
 
