@@ -1,6 +1,6 @@
 # Math journal suggester
 
-Recommend mathematics journals from a title and abstract, with similar published papers as evidence. Qwen3-Embedding-8B retrieves 20 journals; a fine-tuned Kev-4B reranks them.
+Recommend math journals from a title and abstract, with similar published papers as evidence. Qwen3-Embedding-8B retrieves 20 journals, then a fine-tuned Kev-4B reranks them.
 
 | Held-out test · 1,000 papers | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
@@ -12,7 +12,7 @@ The selected model improves Top 3 by **31.8 percentage points** over retrieval. 
 
 ## Quickstart
 
-Python 3.11 or newer. These commands use no GPU, credentials, or network APIs after installation:
+Use Python 3.11 or newer. Check `python3 --version` and use a newer Python executable below if needed. Cloning requires GitHub access while this repository is private. The local demo needs no GPU or model downloads.
 
 ```bash
 git clone https://github.com/mhaseliu/math-journal-suggester.git
@@ -24,16 +24,22 @@ python3 -m venv .venv
 .venv/bin/journal-suggester demo
 ```
 
-Open `http://127.0.0.1:8765`. This is a clearly labelled **synthetic, lexical demo**. Pasting text works offline; importing arXiv metadata requires internet access.
+Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765) in a browser on the same computer. Press Ctrl+C in the terminal to stop the server.
 
-## Real inference and training
+If port 8765 is already in use, run `.venv/bin/journal-suggester demo --port 8766` and open [http://127.0.0.1:8766](http://127.0.0.1:8766) instead.
 
-[Reproduction guide](docs/reproduce.md) covers data, GPU environments, inference, preparation, the three-update pilot, full training, and final evaluation. Neural execution requires an explicitly configured GPU machine; the demo never silently loads a model.
+This demo uses fictional example papers and matches words in your title and abstract. It lets you try the interface without running Qwen or Kev, so its suggestions do not represent the trained model's performance. Pasting text works offline, but importing arXiv metadata requires internet access.
 
-The public release contains code, split identifiers and content hashes, aggregate reports, and per-paper test predictions. **Collected titles/abstracts, reference vectors, upstream weights, credentials, and private deployment settings are excluded.** The fine-tuned adapter is packaged for a separate Hugging Face release; see the model card for availability.
+## Running Qwen and Kev
+
+[Reproduction guide](docs/reproduce.md) covers data preparation, GPU setup, generating recommendations, fine-tuning, and evaluation. Running Qwen and Kev requires a configured GPU machine with the model weights and reference data.
+
+The repository includes the code, records identifying which papers belong to each dataset split, and checksums for verifying the original paper records. It also includes overall results and each method's predictions for individual test papers, so the reported accuracy can be checked without rerunning the models.
+
+**Collected titles/abstracts, reference vectors, upstream weights, credentials, and private deployment settings are excluded.** The fine-tuned adapter is packaged for a separate Hugging Face release. See the model card for availability.
 
 ## Scope
 
-The experiment covers 95 journals/series and pooled publication years 2016 through 2025. Observed publication venue is a weak label: several journals can suit a paper. Results do not estimate acceptance probability. Abstract availability biases the sample, and highly selective journals have sparse training coverage. The test is a random held-out split, not a future-year benchmark; upstream model pretraining overlap is unknown.
+The experiment covers 95 journals/series and pooled publication years 2016 through 2025. Observed publication venue is a weak label: several journals can suit a paper. Results do not estimate acceptance probability. Abstract availability biases the sample, and highly selective journals have sparse training coverage.
 
 Code: [Apache 2.0](LICENSE). [Upstream credits](NOTICE) · [Data and model distribution](docs/distribution.md).
