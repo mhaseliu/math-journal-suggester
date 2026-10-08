@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "Reproducible mathematics journal retrieval and Kev ranking experiment"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-license-files = ["LICENSE", "NOTICE", "licenses/*"]
+license-files = ["LICENSE", "NOTICE", "licenses/kev-LICENSE", "licenses/triton-LICENSE"]
 readme = "README.md"
 dependencies = []
 
@@ -23,4 +23,9 @@ journal-suggester = "journal_suggester.cli:main"
 include = ["journal_suggester*"]
 
 [tool.setuptools.package-data]
-journal_suggester = ["web/*.html", "web/*.css", "web/*.js", "resources/configs/*.json", "resources/data/*.csv", "resources/results/*.json"]
+journal_suggester = [
+    "web/index.html", "web/methodology.html", "web/app.css", "web/app.js",
+    "resources/configs/models.json", "resources/configs/training-8000.json",
+    "resources/configs/website-kev.json", "resources/data/journals.csv",
+    "resources/results/data-audit.json", "resources/results/tuning.json",
+]
