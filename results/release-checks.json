@@ -6,7 +6,6 @@
   },
   "headline_metrics_recomputed": true,
   "fresh_wheel_outside_checkout": true,
-  "synthetic_demo_browser_passed": true,
   "training_selection": {
     "papers": 8000,
     "records_and_order_match_original": true

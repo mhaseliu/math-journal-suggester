@@ -18,4 +18,4 @@ IHÉS, Annals, Acta Mathematica, Inventiones, and JAMS contribute 105 training a
 
 Earlier experiments explored shuffled candidates, wider shortlists, smaller learning-rate comparisons, and a 3,000-paper run (51.0% Top 3 validation). These informed the final design. Only the selected fine-tuned checkpoint was tested. We used one seed and one pooled split. Future decisions informed by these results need a new independent benchmark.
 
-The code was reorganized for this release without repeating training. Hashes of the original training code and dataset splits are preserved in [provenance](../results/provenance.json). The website demonstrates the interface, while the benchmark measures journal matching on published papers.
+The code was reorganized for this release without repeating training. Hashes of the original training code and dataset splits are preserved in [provenance](../results/provenance.json). The benchmark measures journal matching on published papers.

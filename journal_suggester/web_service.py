@@ -81,7 +81,7 @@ class SearchService:
 
     def info(self):
         years = [p["year"] for p in self.references]
-        return {"demo": all(p["paper_id"].startswith("demo:") for p in self.references), "mode": self.mode, "semantic": self.embedder is not None, "ranking": "kev" if self.ranker else "retrieval",
+        return {"mode": self.mode, "semantic": self.embedder is not None, "ranking": "kev" if self.ranker else "retrieval",
                 "reference_hash": self.reference_hash,
                 "embedding_model": self.config["embedding_model"] if self.embedder else None,
                 "embedding_revision": self.config["embedding_revision"] if self.embedder else None,

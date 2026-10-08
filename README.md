@@ -12,7 +12,7 @@ The selected model improves Top 3 by **31.8 percentage points** over retrieval. 
 
 ## Quickstart
 
-Use Python 3.11 or newer. Check `python3 --version` and use a newer Python executable below if needed. Cloning requires GitHub access while this repository is private. The local demo needs no GPU or model downloads.
+Use Python 3.11 or newer. Check `python3 --version` and use a newer Python executable below if needed. Cloning requires GitHub access while this repository is private. These commands install the code and verify the saved results without a GPU:
 
 ```bash
 git clone https://github.com/mhaseliu/math-journal-suggester.git
@@ -21,18 +21,20 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[test,web]'
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python -m journal_suggester.experiment verify-results
-.venv/bin/journal-suggester demo
 ```
-
-Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765) in a browser on the same computer. Press Ctrl+C in the terminal to stop the server.
-
-If port 8765 is already in use, run `.venv/bin/journal-suggester demo --port 8766` and open [http://127.0.0.1:8766](http://127.0.0.1:8766) instead.
-
-This demo uses fictional example papers and matches words in your title and abstract. It lets you try the interface without running Qwen or Kev, so its suggestions do not represent the trained model's performance. Pasting text works offline, but importing arXiv metadata requires internet access.
 
 ## Running Qwen and Kev
 
 [Reproduction guide](docs/reproduce.md) covers data preparation, GPU setup, generating recommendations, fine-tuning, and evaluation. Running Qwen and Kev requires a configured GPU machine with the model weights and reference data.
+
+After that setup, start the website from the GPU environment:
+
+```bash
+journal-suggester serve --split artifacts/experiment/splits \
+  --vectors artifacts/experiment/vectors --kev-run checkpoints/kev-math-epoch2
+```
+
+Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765) on that machine, or use SSH port forwarding to access it from your laptop. Add `--port 8766` if the port is occupied. Press Ctrl+C to stop the server. Pasting text works offline, but importing arXiv metadata requires internet access.
 
 The repository includes the code, records identifying which papers belong to each dataset split, and checksums for verifying the original paper records. It also includes overall results and each method's predictions for individual test papers, so the reported accuracy can be checked without rerunning the models.
 

@@ -79,7 +79,3 @@ $('manuscript-form').addEventListener('submit', async event => {
   } catch (error) { $('results').replaceChildren(); message('search-status', error.message, true); }
   finally {setBusy(false); document.querySelector('.results-section').setAttribute('aria-busy','false');}
 });
-
-fetch('/api/info').then(response => response.json()).then(info => {
-  if (info.demo) $('demo-notice').hidden = false;
-}).catch(() => {});

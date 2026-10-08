@@ -7,8 +7,6 @@ from .io import read_json
 def main():
     parser = argparse.ArgumentParser(description="Mathematics journal recommender experiment")
     sub = parser.add_subparsers(dest="command", required=True)
-    p = sub.add_parser("demo", help="CPU-only demo with fictional supporting papers")
-    p.add_argument("--port", type=int, default=8765)
     p = sub.add_parser("catalog", help="Extract and verify the 95-journal catalog")
     p.add_argument("--offline", action="store_true")
     p = sub.add_parser("collect", help="Collect a capped real-paper pilot")
@@ -38,10 +36,7 @@ def main():
     p.add_argument("--kev-run")
     p.add_argument("--ssh-backend", help="Run semantic retrieval on this GB10 SSH host; connects on first search")
     args = parser.parse_args()
-    if args.command == "demo":
-        from .demo import serve_demo
-        serve_demo(args.port)
-    elif args.command == "catalog":
+    if args.command == "catalog":
         from .catalog import extract, verify
         extract()
         verify(offline=args.offline)

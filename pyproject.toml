@@ -23,4 +23,4 @@ journal-suggester = "journal_suggester.cli:main"
 include = ["journal_suggester*"]
 
 [tool.setuptools.package-data]
-journal_suggester = ["web/*.html", "web/*.css", "web/*.js", "resources/configs/*.json", "resources/data/*.csv", "resources/results/*.json", "resources/demo/*.jsonl"]
+journal_suggester = ["web/*.html", "web/*.css", "web/*.js", "resources/configs/*.json", "resources/data/*.csv", "resources/results/*.json"]

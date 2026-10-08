@@ -25,4 +25,10 @@ jobs:
           python -m venv /tmp/journal-wheel-check
           /tmp/journal-wheel-check/bin/python -m pip install dist/*.whl
           cd /tmp
-          /tmp/journal-wheel-check/bin/python -c 'from journal_suggester.resources import ROOT; from journal_suggester.web_service import SearchService; s = SearchService(ROOT / "demo"); assert s.info()["demo"]; assert len(s.references) == 15'
+          /tmp/journal-wheel-check/bin/python - <<'PY'
+          from journal_suggester.io import journals, read_json
+          from journal_suggester.resources import ROOT
+          assert len(journals()) == 95
+          assert read_json("configs/models.json")["embedding_model"] == "Qwen/Qwen3-Embedding-8B"
+          assert read_json(ROOT / "results/data-audit.json")["checks_pass"]
+          PY
