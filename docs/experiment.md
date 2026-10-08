@@ -2,7 +2,7 @@
 
 The audited corpus contains 10,061 reference papers, 1,000 validation papers, and 1,000 test papers. Training used 8,000 reference papers. Versions stay in one split. Held-out papers are excluded from references, and training papers cannot retrieve themselves as evidence.
 
-Sampling followed journal publication counts, reallocating shortfalls. Validation and test include at least one paper per journal. Training has no minimum. Publication metadata came from Crossref and publishers, with abstracts also collected from OpenAlex and arXiv. Abstract availability limited coverage.
+We sampled papers in proportion to each journal's publication count. If a journal had too few eligible papers, we filled the remaining places from other journals. Validation and test include at least one paper per journal. Training has no minimum. Publication metadata came from Crossref and publishers, with abstracts also collected from OpenAlex and arXiv. Abstract availability limited coverage.
 
 Qwen3-Embedding-8B was used without fine-tuning. Each journal is scored by its closest eligible paper's cosine similarity. Kev receives 20 journals in retrieval order, with two supporting excerpts each. Training inserts the actual journal if missing. Validation and test use unchanged candidates. Accuracy counts every paper, while validation loss counts only papers whose journal was retrieved.
 
@@ -18,4 +18,4 @@ IHÉS, Annals, Acta Mathematica, Inventiones, and JAMS contribute 105 training a
 
 Earlier experiments explored shuffled candidates, wider shortlists, smaller learning-rate comparisons, and a 3,000-paper run (51.0% Top 3 validation). These informed the final design. Only the selected fine-tuned checkpoint was tested. We used one seed and one pooled split. Future decisions informed by these results need a new independent benchmark.
 
-The code was reorganized for this release without repeating training. Hashes of the original training code and dataset splits are preserved in [provenance](../results/provenance.json). The benchmark measures journal matching on published papers.
+The code was reorganized for this release without repeating training. See [code and data versions](../results/provenance.json) for the original source commit and checksums of the evaluation code and dataset split. The benchmark measures journal matching on published papers.
