@@ -38,7 +38,7 @@ Training used 8,000 papers from 95 math journals and series published from 2016 
 
 We updated Kev's LoRA adapter and decision head with AdamW, a peak learning rate of `4e-5`, and a five-epoch OneCycle schedule. Each update accumulated gradients from eight single-paper batches. Validation ran every half epoch. Training stopped early at epoch 3.5, and epoch 2 was selected.
 
-Training used a B300 with FP32 weights, BF16 autocast, and verified fast kernels. TF32 and reduced-precision accumulation were disabled. Final inference ran on GB10. The experiment used one seed and one split.
+Training used a B300 with FP32 weights, BF16 autocast, and verified fast kernels. TF32 and reduced-precision accumulation were disabled. Final inference ran on an ASUS Ascent GX10 with an NVIDIA GB10 chip. The experiment used one seed and one split.
 
 ## Use
 

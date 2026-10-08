@@ -1,6 +1,6 @@
 # Reproduce the experiment
 
-Start with the [installation instructions](../README.md#quickstart). Run commands from the repository root with your Python environment active. Checking saved results needs no GPU. Running Qwen or Kev does.
+Start with the [installation instructions](../README.md#quickstart). Run commands from the repository root with your Python environment active. Checking saved results does not need a GPU but running Qwen or Kev does.
 
 ## Check the reported results
 
@@ -40,7 +40,7 @@ split("data/processed/papers.jsonl", "artifacts/source/splits",
 
 Keep the generated manifest. Splitting fails if journal coverage is insufficient.
 
-To reproduce the original benchmark, match the paper IDs and `record_sha256` checksums in `data/splits/`. The original cleaned text is not distributed, and collecting it again may return different content. A new split is a new benchmark.
+To reproduce the original benchmark, match the paper IDs and `record_sha256` checksums in `data/splits/`. The original cleaned text is not distributed, and collecting it again may return different content.
 
 ## Set up the GPU machine
 
@@ -48,10 +48,10 @@ Connect to your GPU machine before continuing. The tested setups are:
 
 | Hardware | PyTorch | CUDA |
 |---|---|---|
-| GB10 ARM64 | 2.8.0 | 12.9 |
+| ASUS Ascent GX10 (NVIDIA GB10, ARM64) | 2.8.0 | 12.9 |
 | B300 | 2.12.1 | 13.2 |
 
-On **GB10**, use Python 3.12 and run `uv sync --project environments/gb10-speed --frozen`. Activate that environment and set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. Use `JOURNAL_TRITON_CUDA13=1` only with the pinned CUDA 13 ptxas/Triton 3.4 combination.
+On **ASUS Ascent GX10**, use Python 3.12 and run `uv sync --project environments/gb10-speed --frozen`. Activate that environment and set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. Use `JOURNAL_TRITON_CUDA13=1` only with the pinned CUDA 13 ptxas/Triton 3.4 combination.
 
 On **another CUDA machine**, follow [GPU setup](../environments/README.md) and set `CUDA_VISIBLE_DEVICES=0`, `JOURNAL_EXECUTION_BACKEND=cuda`, and `JOURNAL_ALLOW_MODEL_EXECUTION=1`. The tested B300 setup overrides Kev's `torch<2.9` requirement after numerical checks confirmed agreement. Other hardware is unverified.
 
