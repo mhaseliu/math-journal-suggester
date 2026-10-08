@@ -1,0 +1,11 @@
+{
+  "checks_pass": true,
+  "head_tensors_bitwise_identical": true,
+  "adapter_bytes_unchanged": true,
+  "removed_metadata_fields": [
+    "args",
+    "init_source"
+  ],
+  "original_manifest_sha256": "53aba6325cd9821b54ff11c38bd2135e121d1c65a51fb1cd07cddd02de87d800",
+  "public_manifest_sha256": "41a6351032225874bb700832abcb744195515011531633ab8961914a89fdcd82"
+}

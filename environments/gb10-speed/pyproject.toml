@@ -1,0 +1,26 @@
+[project]
+name = "journal-suggester-gb10-speed"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "journal-suggester", "kev", "torch==2.8.0+cu129", "triton==3.4.0",
+    "transformers==5.17.0", "peft==0.21.0", "accelerate==1.15.0",
+    "numpy==2.5.3", "scikit-learn==1.9.1", "datasets==5.1.0", "pydantic==2.13.5",
+    "flash-linear-attention[cuda]==0.5.2", "causal-conv1d",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'aarch64'"]
+
+[tool.uv.sources]
+journal-suggester = { path = "../..", editable = true }
+kev = { git = "https://github.com/jaredpalmer/kev", rev = "5e42a7a03f28134853dd3ff77461457e921e5ec1" }
+torch = { index = "pytorch-cu129" }
+triton = { index = "pytorch-cu129" }
+causal-conv1d = { url = "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.7.0/causal_conv1d-1.7.0%2Bcu12torch2.8cxx11abiTRUE-cp312-cp312-linux_aarch64.whl" }
+
+[[tool.uv.index]]
+name = "pytorch-cu129"
+url = "https://download.pytorch.org/whl/cu129"
+explicit = true

@@ -1,0 +1,93 @@
+:root {
+  --bg: #fafaf7;
+  --paper: #fff;
+  --ink: #243b32;
+  --text: #343b35;
+  --muted: #697166;
+  --line: #d9ddd4;
+  --green: #284b3b;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.6 var(--sans); }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .6; }
+a { color: var(--green); }
+[hidden] { display: none !important; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+  outline: 2px solid #648266;
+  outline-offset: 3px;
+}
+.skip { position: absolute; top: -80px; left: 12px; background: white; padding: 10px; }
+.skip:focus { top: 12px; }
+main { max-width: 732px; padding: 0 26px; margin: 52px auto 28px; }
+header { margin-bottom: 28px; }
+h1 { margin: 0; color: var(--ink); font: 28px/1.3 Georgia, 'Times New Roman', serif; }
+h2 { margin: 0 0 16px; color: var(--ink); font-size: 18px; font-weight: 500; }
+.subtle { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+.field-label { display: block; font-size: 13px; margin-bottom: 6px; }
+.url-row { display: flex; gap: 9px; }
+.url-row .secondary { flex-shrink: 0; white-space: nowrap; }
+input[type=text], textarea { display: block; width: 100%; min-width: 0; padding: 9px 11px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--text); }
+textarea { resize: vertical; min-height: 62px; line-height: 1.6; }
+textarea::placeholder, input::placeholder { color: #767d73; }
+.secondary { border: 1px solid #c7d0c1; border-radius: 4px; background: #f0f3ed; padding: 8px 17px; color: var(--green); }
+.secondary:hover { background: #e8eee2; }
+.import-panel { margin-bottom: 22px; }
+.import-help { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: 8px; color: var(--muted); font-size: 12px; }
+.label-row { display: flex; align-items: baseline; justify-content: space-between; }
+.text-button { border: 0; padding: 0; background: none; color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.text-button:hover { color: var(--green); }
+.abstract-label { margin-top: 18px; }
+#abstract { min-height: 172px; }
+.primary { margin-top: 18px; padding: 9px 22px; border: 1px solid var(--green); border-radius: 4px; color: white; background: var(--green); }
+.primary:hover { background: #345b46; }
+.notice, .status { margin: 0 0 18px; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.error { color: #963d2a; }
+.results-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.journal-card { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.journal-card:first-child { padding-top: 0; }
+.journal-card:last-child { border-bottom: 0; }
+.journal-card h3 { margin: 0 0 11px; font: 20px/1.4 Georgia, 'Times New Roman', serif; color: var(--ink); }
+.reference { margin: 11px 0; }
+.paper-link { font-size: 14px; line-height: 1.6; text-decoration: none; overflow-wrap: anywhere; }
+.paper-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.paper-meta { display: inline; margin-left: 7px; font-size: 12px; color: var(--muted); }
+.reference summary { width: fit-content; margin-top: 3px; font-size: 12px; color: var(--muted); cursor: pointer; }
+.reference details p { margin: 8px 0 14px; color: #525d4d; font-size: 13px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.hint { color: var(--muted); font-size: 12px; }
+footer { margin-top: 30px; color: var(--muted); font-size: 11px; }
+.page-nav { display: flex; gap: 22px; margin-top: 15px; font-size: 13px; }
+.page-nav a { color: var(--muted); text-decoration: none; padding-bottom: 3px; }
+.page-nav a:hover { color: var(--ink); }
+.page-nav a[aria-current=page] { color: var(--ink); border-bottom: 1px solid var(--green); }
+.methodology h2 { margin: 0 0 10px; }
+.methodology h3 { font-size: 14px; font-weight: 600; margin: 20px 0 8px; }
+.methodology p { margin: 0 0 13px; }
+.methodology section { margin-top: 28px; }
+.methodology .page-intro { color: var(--muted); }
+.methodology details { border-top: 1px solid var(--line); padding: 15px 0; }
+.methodology summary { cursor: pointer; color: var(--ink); }
+.methodology details > :nth-child(2) { margin-top: 14px; }
+.methodology table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; font-variant-numeric: tabular-nums; }
+.methodology caption { text-align: left; color: var(--muted); font-size: 12px; margin-bottom: 7px; }
+.methodology th, .methodology td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: center; vertical-align: top; }
+.methodology th:first-child, .methodology td:first-child { text-align: left; padding-left: 0; }
+.methodology thead th { font-weight: 500; color: var(--muted); }
+.methodology tbody th { font-weight: 400; }
+.methodology .record-links { font-size: 12px; line-height: 2; }
+.methodology code { font-size: .95em; overflow-wrap: anywhere; }
+
+@media (max-width: 520px) {
+  main { margin-top: 28px; padding: 0 20px; }
+  h1 { font-size: 25px; }
+  header { margin-bottom: 23px; }
+  input[type=text], textarea { font-size: 16px; }
+  .url-row { flex-direction: column; }
+  .url-row .secondary { padding: 8px 13px; align-self: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}

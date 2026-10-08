@@ -1,0 +1,12 @@
+{
+  "checks_pass": true,
+  "all_texts_clean": true,
+  "training_papers": 8000,
+  "training_journals": 95,
+  "quota_range": [
+    6,
+    399
+  ],
+  "split_identities_and_groups_disjoint": true,
+  "unchanged_validation_requests": true
+}

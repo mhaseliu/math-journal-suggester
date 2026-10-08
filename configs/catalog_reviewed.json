@@ -1,0 +1,16 @@
+{
+  "acta-mathematica": {"seed": "0001-5962", "title": "Acta Mathematica"},
+  "representation-theory": {"seed": "1088-4165", "title": "Representation Theory of the American Mathematical Society"},
+  "algebra-and-number-theory": {"seed": "1937-0652", "title": "Algebra & Number Theory"},
+  "analysis-and-pde": {"seed": "2157-5045", "title": "Analysis & PDE"},
+  "annales-de-l-institut-henri-poincare-c-analyse-non-lineaire": {"seed": "0294-1449", "title": "Annales de l Institut Henri Poincaré C Analyse Non Linéaire"},
+  "annales-scientifiques-de-l-ecole-normale-superieure": {"seed": "0012-9593", "title": "Annales Scientifiques de l École Normale Supérieure"},
+  "glasnik-matematicki": {"seed": "0017-095X", "title": "Glasnik Matematicki"},
+  "journal-fur-die-reine-und-angewandte-mathematik": {"seed": "0075-4102", "title": "Journal für die reine und angewandte Mathematik (Crelles Journal)"},
+  "new-york-journal-of-mathematics": {"issns": ["1076-9803"], "source": "https://nyjm.albany.edu/j/2024/30-34p.pdf", "crossref_status": "ISSN endpoint returned 404 on 2026-10-06"},
+  "publications-mathematiques-de-l-ihes": {"seed": "0073-8301", "title": "Publications mathématiques de l IHÉS"},
+  "algebraic-and-geometric-topology": {"seed": "1472-2747", "title": "Algebraic & Geometric Topology"},
+  "geometry-and-topology": {"seed": "1364-0380", "title": "Geometry & Topology"},
+  "the-journal-of-symbolic-logic": {"seed": "0022-4812", "title": "Journal of Symbolic Logic"},
+  "l-enseignement-mathematique": {"seed": "0013-8584", "title": "L’Enseignement Mathématique"}
+}

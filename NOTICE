@@ -1,0 +1,14 @@
+Math journal suggester
+Copyright 2026 Math journal suggester contributors
+
+Uses Kev by Jared Palmer (Copyright 2026 Jared Palmer), licensed under Apache 2.0:
+https://github.com/jaredpalmer/kev/tree/5e42a7a03f28134853dd3ff77461457e921e5ec1
+Kev-4B weights: https://huggingface.co/jaredpalmer/kev-4b
+Qwen3.5-4B-Base and Qwen3-Embedding-8B: Qwen Team, Apache 2.0.
+Pinned revisions are in configs/models.json. Upstream model weights are not vendored.
+
+The GB10 Triton compatibility helper backports the CUDA 13 to PTX 9 mapping
+from Triton release/3.5.x (MIT); its license is included in licenses/.
+The training integration preserves the pinned Kev optimizer and scheduler,
+while adding fixed candidate order, strict arithmetic and evaluation hooks.
+This project is not affiliated with or endorsed by these upstream projects.

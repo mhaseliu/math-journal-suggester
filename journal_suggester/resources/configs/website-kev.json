@@ -1,0 +1,6 @@
+{
+  "epoch": 2.0,
+  "optimizer_steps": 2000,
+  "manifest_sha256": "41a6351032225874bb700832abcb744195515011531633ab8961914a89fdcd82",
+  "checkpoint": "checkpoints/kev-math-epoch2"
+}

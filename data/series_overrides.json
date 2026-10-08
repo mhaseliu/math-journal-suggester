@@ -1,0 +1,317 @@
+{
+  "asterisque_excluded_volumes": {
+    "100": {
+      "evidence": "https://www.numdam.org/journals/AST/",
+      "original_year": 1982,
+      "reason": "Reprint of an earlier work"
+    },
+    "223": {
+      "evidence": "https://smf.emath.fr/publications/periodes-p-adiques-seminaire-de-bures-1988-reedition-2020",
+      "original_year": 1994,
+      "reason": "2020 reprint of the 1994 volume"
+    }
+  },
+  "asterisque_ignored_dois": {
+    "452": {
+      "doi": "10.24033/ast.1225",
+      "evidence": [
+        "https://api.crossref.org/works/10.24033/ast.1225",
+        "https://smf.emath.fr/publications/evolution-des-reseaux-jonctions-multiples",
+        "https://smf.emath.fr/publications/la-stabilisation-des-traces-de-frobenius-hecke-sur-la-cohomologie-dintersection-des"
+      ],
+      "reason": "Publisher reused volume 453 DOI on volume 452; retain volume 452 by its distinct publisher URL."
+    }
+  },
+  "memoirs": {
+    "1156": {
+      "doi": "10.1090/memo/1156",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1157": {
+      "doi": "10.1090/memo/1157",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1158": {
+      "doi": "10.1090/memo/1158",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1159": {
+      "doi": "10.1090/memo/1159",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1160": {
+      "doi": "10.1090/memo/1160",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1161": {
+      "doi": "10.1090/memo/1161",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2194-6_01.pdf",
+        "https://www.ams.org/memo/1143/"
+      ],
+      "reason": "AMS identifies this memoir as volume 245; its printed January 2017 volume date takes precedence over the zbMATH 2016 year.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1162": {
+      "doi": "10.1090/memo/1162",
+      "evidence": [
+        "https://toc.library.ethz.ch/objects/pdf03/e01_978-1-4704-2308-7_01.pdf"
+      ],
+      "reason": "Printed cover dates the memoir March 2017; zbMATH uses 2016.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1163": {
+      "doi": "10.1090/memo/1163",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2017-05.pdf"
+      ],
+      "reason": "Library transcription distinguishes March 2017 volume date from 2016 copyright.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1164": {
+      "doi": "10.1090/memo/1164",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2017-05.pdf"
+      ],
+      "reason": "Library record identifies title, author, ISBN and memoir 1164 with March 2017 date; its quoted number 1163 is a typo.",
+      "source_kind": "printed_volume_date",
+      "year": 2017
+    },
+    "1198": {
+      "doi": "10.1090/memo/1198",
+      "evidence": [
+        "https://zbmath.org/?q=an:1435.11003"
+      ],
+      "reason": "French title translated into English.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2018,
+      "zbl_id": "1435.11003"
+    },
+    "1216": {
+      "doi": "10.1090/memo/1216",
+      "evidence": [
+        "https://arxiv.org/abs/0810.0687"
+      ],
+      "reason": "arXiv final journal reference and DOI identify memoir 1216, volume 254 (2018); submission year is not used.",
+      "source_kind": "arxiv_final_journal_reference",
+      "year": 2018
+    },
+    "1219": {
+      "doi": "10.1090/memo/1219",
+      "evidence": [
+        "https://zbmath.org/?q=an:1496.20001"
+      ],
+      "reason": "Equivalent mathematical notation.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2018,
+      "zbl_id": "1496.20001"
+    },
+    "1267": {
+      "doi": "10.1090/memo/1267",
+      "evidence": [
+        "https://zbmath.org/?q=an:1511.20003"
+      ],
+      "reason": "Combined memoir has no container authors in zbMATH; its two components match the authors. Count the separately numbered memoir once.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2019,
+      "zbl_id": "1511.20003"
+    },
+    "1269": {
+      "doi": "10.1090/memo/1269",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2020-02.pdf"
+      ],
+      "reason": "Library transcription of printed November 2019 cover, volume 262, memoir 1269.",
+      "source_kind": "printed_volume_date",
+      "year": 2019
+    },
+    "1274": {
+      "doi": "10.1090/memo/1274",
+      "evidence": [
+        "https://zbmath.org/?q=an:1439.05001"
+      ],
+      "reason": "Compound surname parsed differently; coauthors and title match.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2020,
+      "zbl_id": "1439.05001"
+    },
+    "1275": {
+      "doi": "10.1090/memo/1275",
+      "evidence": [
+        "https://zbmath.org/?q=an:1448.11209"
+      ],
+      "reason": "Equivalent mathematical notation.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2020,
+      "zbl_id": "1448.11209"
+    },
+    "1287": {
+      "doi": "10.1090/memo/1287",
+      "evidence": [
+        "https://api.crossref.org/works/10.1090/memo/1287",
+        "https://www.ams.org/memo/1143/",
+        "https://math.huji.ac.il/~mhochman/publications.html",
+        "https://www.cambridge.org/core/journals/proceedings-of-the-edinburgh-mathematical-society/article/abs/on-dense-intermingling-of-exact-overlaps-and-the-open-set-condition/FA18E90D9233288D7580A5E16DF687DF"
+      ],
+      "exclude": true,
+      "reason": "Excluded from the 2016–2025 corpus after the user manually checked memoir 1287 and instructed its removal.",
+      "reviewed_by": "user",
+      "reviewed_on": "2026-10-06",
+      "source_kind": "user_manual_review",
+      "year": null
+    },
+    "1304": {
+      "doi": "10.1090/memo/1304",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2021-07.pdf"
+      ],
+      "reason": "Printed November 2020 volume date takes precedence over 2021 release/bibliographic year.",
+      "source_kind": "printed_volume_date",
+      "year": 2020
+    },
+    "1307": {
+      "doi": "10.1090/memo/1307",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2021-07.pdf",
+        "https://wrap.warwick.ac.uk/id/eprint/127304/"
+      ],
+      "reason": "Printed November 2020 volume date takes precedence over 2021 release date.",
+      "source_kind": "printed_volume_date",
+      "year": 2020
+    },
+    "1308": {
+      "doi": "10.1090/memo/1308",
+      "evidence": [
+        "https://www.uc.pt/site/assets/files/1519503/2021-07.pdf"
+      ],
+      "reason": "Printed November 2020 volume date takes precedence over 2021 release/bibliographic year.",
+      "source_kind": "printed_volume_date",
+      "year": 2020
+    },
+    "1352": {
+      "doi": "10.1090/memo/1352",
+      "evidence": [
+        "https://zbmath.org/?q=an:1498.51001"
+      ],
+      "reason": "zbMATH title adds the appendix attribution.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2022,
+      "zbl_id": "1498.51001"
+    },
+    "1389": {
+      "doi": "10.1090/memo/1389",
+      "evidence": [
+        "https://zbmath.org/?q=an:1544.81087"
+      ],
+      "reason": "Equivalent mathematical notation.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2023,
+      "zbl_id": "1544.81087"
+    },
+    "1442": {
+      "doi": "10.1090/memo/1442",
+      "evidence": [
+        "https://zbmath.org/?q=an:1540.22001"
+      ],
+      "reason": "French title translated into English.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2023,
+      "zbl_id": "1540.22001"
+    },
+    "1461": {
+      "doi": "10.1090/memo/1461",
+      "evidence": [
+        "https://zbmath.org/?q=an:1544.46004"
+      ],
+      "reason": "Equivalent mathematical notation.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2024,
+      "zbl_id": "1544.46004"
+    },
+    "1473": {
+      "doi": "10.1090/memo/1473",
+      "evidence": [
+        "https://zbmath.org/?q=an:1544.11001"
+      ],
+      "reason": "zbMATH title adds a dedication.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2024,
+      "zbl_id": "1544.11001"
+    },
+    "1593": {
+      "doi": "10.1090/memo/1593",
+      "evidence": [
+        "https://zbmath.org/?q=an:08169018"
+      ],
+      "reason": "First author lacks surname comma; coauthor and title match.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2025,
+      "zbl_id": "08169018"
+    },
+    "1606": {
+      "doi": "10.1090/memo/1606",
+      "evidence": [
+        "https://www.mat.uc.pt/~bad/boletim/2026/2026-02.pdf"
+      ],
+      "reason": "Library transcription of printed December 2025 cover, volume 316, memoir 1606.",
+      "source_kind": "printed_volume_date",
+      "year": 2025
+    },
+    "1621": {
+      "doi": "10.1090/memo/1621",
+      "evidence": [
+        "https://zbmath.org/?q=an:08212944"
+      ],
+      "reason": "zbMATH title adds the appendix attribution.",
+      "source_kind": "reviewed_zbmath_citation",
+      "year": 2026,
+      "zbl_id": "08212944"
+    }
+  },
+  "memoirs_window": {
+    "boundary_checks": {
+      "1128": 2015,
+      "1129": 2016,
+      "1608": 2025,
+      "1609": 2026
+    },
+    "first_number": 1129,
+    "first_volume": 239,
+    "last_number": 1608,
+    "last_volume": 316,
+    "policy": "Boundary memoirs have verified bibliographic years; independently resolve every numbered work within the volume window. Out-of-window volumes remain excluded even when their exact year is unverified."
+  }
+}

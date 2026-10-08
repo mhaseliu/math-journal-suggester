@@ -1,0 +1,1183 @@
+{
+  "metrics": {
+    "fine_tuned_kev": {
+      "candidate_recall_at_20": 0.85,
+      "conditional_top1": 0.6035294117647059,
+      "macro_top3": 0.6109947941687426,
+      "mrr": 0.6292559648684648,
+      "n": 1000,
+      "per_journal": {
+        "acta-arithmetica": {
+          "support": 9,
+          "top3": 0.8888888888888888
+        },
+        "acta-mathematica": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "advances-in-mathematics": {
+          "support": 35,
+          "top3": 0.7142857142857143
+        },
+        "algebra-and-number-theory": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "algebraic-and-geometric-topology": {
+          "support": 10,
+          "top3": 0.8
+        },
+        "algebraic-combinatorics": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "algebraic-geometry": {
+          "support": 3,
+          "top3": 0.6666666666666666
+        },
+        "algebras-and-representation-theory": {
+          "support": 7,
+          "top3": 0.8571428571428571
+        },
+        "american-journal-of-mathematics": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "analysis-and-pde": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "annales-de-l-institut-henri-poincare-c-analyse-non-lineaire": {
+          "support": 5,
+          "top3": 1.0
+        },
+        "annales-henri-poincare": {
+          "support": 10,
+          "top3": 0.9
+        },
+        "annales-scientifiques-de-l-ecole-normale-superieure": {
+          "support": 4,
+          "top3": 0.25
+        },
+        "annals-of-mathematics": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "annals-of-pure-and-applied-logic": {
+          "support": 6,
+          "top3": 1.0
+        },
+        "archive-for-history-of-exact-sciences": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "archive-for-rational-mechanics-and-analysis": {
+          "support": 11,
+          "top3": 0.9090909090909091
+        },
+        "asterisque": {
+          "support": 3,
+          "top3": 1.0
+        },
+        "bernoulli": {
+          "support": 10,
+          "top3": 1.0
+        },
+        "bulletin-of-the-australian-mathematical-society": {
+          "support": 12,
+          "top3": 0.6666666666666666
+        },
+        "bulletin-of-the-london-mathematical-society": {
+          "support": 13,
+          "top3": 0.38461538461538464
+        },
+        "combinatorica": {
+          "support": 5,
+          "top3": 0.8
+        },
+        "commentarii-mathematici-helvetici": {
+          "support": 3,
+          "top3": 0.3333333333333333
+        },
+        "communications-in-mathematical-physics": {
+          "support": 24,
+          "top3": 0.9166666666666666
+        },
+        "communications-on-pure-and-applied-mathematics": {
+          "support": 5,
+          "top3": 0.6
+        },
+        "compositio-mathematica": {
+          "support": 7,
+          "top3": 0.2857142857142857
+        },
+        "duke-mathematical-journal": {
+          "support": 6,
+          "top3": 0.16666666666666666
+        },
+        "ergodic-theory-and-dynamical-systems": {
+          "support": 11,
+          "top3": 0.9090909090909091
+        },
+        "forum-of-mathematics-pi": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "forum-of-mathematics-sigma": {
+          "support": 8,
+          "top3": 0.375
+        },
+        "foundations-of-computational-mathematics": {
+          "support": 4,
+          "top3": 1.0
+        },
+        "geometriae-dedicata": {
+          "support": 8,
+          "top3": 0.5
+        },
+        "geometric-and-functional-analysis": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "geometry-and-topology": {
+          "support": 7,
+          "top3": 0.8571428571428571
+        },
+        "glasgow-mathematical-journal": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "glasnik-matematicki": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "groups-geometry-and-dynamics": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "historia-mathematica": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "ieee-transactions-on-information-theory": {
+          "support": 40,
+          "top3": 1.0
+        },
+        "international-mathematics-research-notices": {
+          "support": 30,
+          "top3": 0.8666666666666667
+        },
+        "inventiones-mathematicae": {
+          "support": 7,
+          "top3": 0.14285714285714285
+        },
+        "israel-journal-of-mathematics": {
+          "support": 13,
+          "top3": 0.6923076923076923
+        },
+        "journal-fur-die-reine-und-angewandte-mathematik": {
+          "support": 9,
+          "top3": 0.3333333333333333
+        },
+        "journal-of-algebra": {
+          "support": 39,
+          "top3": 0.9743589743589743
+        },
+        "journal-of-algebraic-geometry": {
+          "support": 3,
+          "top3": 0.6666666666666666
+        },
+        "journal-of-combinatorial-theory-series-a": {
+          "support": 9,
+          "top3": 0.7777777777777778
+        },
+        "journal-of-combinatorial-theory-series-b": {
+          "support": 7,
+          "top3": 0.8571428571428571
+        },
+        "journal-of-differential-geometry": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "journal-of-functional-analysis": {
+          "support": 22,
+          "top3": 0.9090909090909091
+        },
+        "journal-of-group-theory": {
+          "support": 6,
+          "top3": 0.6666666666666666
+        },
+        "journal-of-knot-theory-and-its-ramifications": {
+          "support": 10,
+          "top3": 0.8
+        },
+        "journal-of-mathematical-biology": {
+          "support": 12,
+          "top3": 1.0
+        },
+        "journal-of-mathematical-logic": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "journal-of-mathematical-physics": {
+          "support": 37,
+          "top3": 0.918918918918919
+        },
+        "journal-of-number-theory": {
+          "support": 19,
+          "top3": 1.0
+        },
+        "journal-of-physics-a-mathematical-and-theoretical": {
+          "support": 46,
+          "top3": 0.9565217391304348
+        },
+        "journal-of-pure-and-applied-algebra": {
+          "support": 20,
+          "top3": 0.75
+        },
+        "journal-of-the-american-mathematical-society": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "journal-of-the-european-mathematical-society": {
+          "support": 10,
+          "top3": 0.2
+        },
+        "journal-of-the-london-mathematical-society": {
+          "support": 12,
+          "top3": 0.25
+        },
+        "journal-of-topology": {
+          "support": 4,
+          "top3": 0.5
+        },
+        "journal-of-topology-and-analysis": {
+          "support": 4,
+          "top3": 0.75
+        },
+        "l-enseignement-mathematique": {
+          "support": 3,
+          "top3": 0.3333333333333333
+        },
+        "mathematical-programming": {
+          "support": 11,
+          "top3": 1.0
+        },
+        "mathematical-research-letters": {
+          "support": 7,
+          "top3": 0.2857142857142857
+        },
+        "mathematics-of-computation": {
+          "support": 10,
+          "top3": 1.0
+        },
+        "mathematische-annalen": {
+          "support": 17,
+          "top3": 0.47058823529411764
+        },
+        "mathematische-zeitschrift": {
+          "support": 19,
+          "top3": 0.5789473684210527
+        },
+        "memoirs-of-the-american-mathematical-society": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "michigan-mathematical-journal": {
+          "support": 4,
+          "top3": 0.5
+        },
+        "new-york-journal-of-mathematics": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "nonlinearity": {
+          "support": 19,
+          "top3": 0.7894736842105263
+        },
+        "numerische-mathematik": {
+          "support": 7,
+          "top3": 1.0
+        },
+        "pacific-journal-of-mathematics": {
+          "support": 10,
+          "top3": 0.2
+        },
+        "probability-theory-and-related-fields": {
+          "support": 7,
+          "top3": 0.42857142857142855
+        },
+        "proceedings-of-the-american-mathematical-society": {
+          "support": 36,
+          "top3": 0.6944444444444444
+        },
+        "proceedings-of-the-edinburgh-mathematical-society": {
+          "support": 6,
+          "top3": 0.16666666666666666
+        },
+        "proceedings-of-the-london-mathematical-society": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "publications-mathematiques-de-l-ihes": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "representation-theory": {
+          "support": 3,
+          "top3": 0.3333333333333333
+        },
+        "rocky-mountain-journal-of-mathematics": {
+          "support": 11,
+          "top3": 0.2727272727272727
+        },
+        "selecta-mathematica": {
+          "support": 8,
+          "top3": 0.125
+        },
+        "siam-journal-on-applied-mathematics": {
+          "support": 10,
+          "top3": 1.0
+        },
+        "siam-journal-on-control-and-optimization": {
+          "support": 14,
+          "top3": 1.0
+        },
+        "siam-journal-on-financial-mathematics": {
+          "support": 4,
+          "top3": 1.0
+        },
+        "siam-journal-on-mathematics-of-data-science": {
+          "support": 4,
+          "top3": 1.0
+        },
+        "siam-journal-on-numerical-analysis": {
+          "support": 11,
+          "top3": 0.9090909090909091
+        },
+        "siam-journal-on-optimization": {
+          "support": 10,
+          "top3": 1.0
+        },
+        "the-annals-of-applied-probability": {
+          "support": 10,
+          "top3": 0.8
+        },
+        "the-annals-of-probability": {
+          "support": 7,
+          "top3": 1.0
+        },
+        "the-annals-of-statistics": {
+          "support": 10,
+          "top3": 1.0
+        },
+        "the-electronic-journal-of-combinatorics": {
+          "support": 19,
+          "top3": 1.0
+        },
+        "the-journal-of-symbolic-logic": {
+          "support": 8,
+          "top3": 1.0
+        },
+        "topology-and-its-applications": {
+          "support": 25,
+          "top3": 0.88
+        },
+        "transactions-of-the-american-mathematical-society": {
+          "support": 24,
+          "top3": 0.5833333333333334
+        }
+      },
+      "top1": 0.513,
+      "top3": 0.724,
+      "top5": 0.782
+    },
+    "released_kev": {
+      "candidate_recall_at_20": 0.85,
+      "conditional_top1": 0.26235294117647057,
+      "macro_top3": 0.37476127910135465,
+      "mrr": 0.3543158402570941,
+      "n": 1000,
+      "per_journal": {
+        "acta-arithmetica": {
+          "support": 9,
+          "top3": 0.2222222222222222
+        },
+        "acta-mathematica": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "advances-in-mathematics": {
+          "support": 35,
+          "top3": 0.05714285714285714
+        },
+        "algebra-and-number-theory": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "algebraic-and-geometric-topology": {
+          "support": 10,
+          "top3": 0.5
+        },
+        "algebraic-combinatorics": {
+          "support": 5,
+          "top3": 0.4
+        },
+        "algebraic-geometry": {
+          "support": 3,
+          "top3": 1.0
+        },
+        "algebras-and-representation-theory": {
+          "support": 7,
+          "top3": 1.0
+        },
+        "american-journal-of-mathematics": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "analysis-and-pde": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "annales-de-l-institut-henri-poincare-c-analyse-non-lineaire": {
+          "support": 5,
+          "top3": 0.8
+        },
+        "annales-henri-poincare": {
+          "support": 10,
+          "top3": 0.3
+        },
+        "annales-scientifiques-de-l-ecole-normale-superieure": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "annals-of-mathematics": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "annals-of-pure-and-applied-logic": {
+          "support": 6,
+          "top3": 0.16666666666666666
+        },
+        "archive-for-history-of-exact-sciences": {
+          "support": 2,
+          "top3": 0.5
+        },
+        "archive-for-rational-mechanics-and-analysis": {
+          "support": 11,
+          "top3": 0.2727272727272727
+        },
+        "asterisque": {
+          "support": 3,
+          "top3": 0.3333333333333333
+        },
+        "bernoulli": {
+          "support": 10,
+          "top3": 0.5
+        },
+        "bulletin-of-the-australian-mathematical-society": {
+          "support": 12,
+          "top3": 0.16666666666666666
+        },
+        "bulletin-of-the-london-mathematical-society": {
+          "support": 13,
+          "top3": 0.07692307692307693
+        },
+        "combinatorica": {
+          "support": 5,
+          "top3": 0.6
+        },
+        "commentarii-mathematici-helvetici": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "communications-in-mathematical-physics": {
+          "support": 24,
+          "top3": 0.6666666666666666
+        },
+        "communications-on-pure-and-applied-mathematics": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "compositio-mathematica": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "duke-mathematical-journal": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "ergodic-theory-and-dynamical-systems": {
+          "support": 11,
+          "top3": 0.7272727272727273
+        },
+        "forum-of-mathematics-pi": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "forum-of-mathematics-sigma": {
+          "support": 8,
+          "top3": 0.25
+        },
+        "foundations-of-computational-mathematics": {
+          "support": 4,
+          "top3": 0.75
+        },
+        "geometriae-dedicata": {
+          "support": 8,
+          "top3": 0.125
+        },
+        "geometric-and-functional-analysis": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "geometry-and-topology": {
+          "support": 7,
+          "top3": 0.42857142857142855
+        },
+        "glasgow-mathematical-journal": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "glasnik-matematicki": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "groups-geometry-and-dynamics": {
+          "support": 6,
+          "top3": 0.8333333333333334
+        },
+        "historia-mathematica": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "ieee-transactions-on-information-theory": {
+          "support": 40,
+          "top3": 0.875
+        },
+        "international-mathematics-research-notices": {
+          "support": 30,
+          "top3": 0.1
+        },
+        "inventiones-mathematicae": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "israel-journal-of-mathematics": {
+          "support": 13,
+          "top3": 0.15384615384615385
+        },
+        "journal-fur-die-reine-und-angewandte-mathematik": {
+          "support": 9,
+          "top3": 0.0
+        },
+        "journal-of-algebra": {
+          "support": 39,
+          "top3": 0.38461538461538464
+        },
+        "journal-of-algebraic-geometry": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "journal-of-combinatorial-theory-series-a": {
+          "support": 9,
+          "top3": 0.5555555555555556
+        },
+        "journal-of-combinatorial-theory-series-b": {
+          "support": 7,
+          "top3": 0.8571428571428571
+        },
+        "journal-of-differential-geometry": {
+          "support": 5,
+          "top3": 0.6
+        },
+        "journal-of-functional-analysis": {
+          "support": 22,
+          "top3": 0.2727272727272727
+        },
+        "journal-of-group-theory": {
+          "support": 6,
+          "top3": 0.3333333333333333
+        },
+        "journal-of-knot-theory-and-its-ramifications": {
+          "support": 10,
+          "top3": 0.8
+        },
+        "journal-of-mathematical-biology": {
+          "support": 12,
+          "top3": 0.5
+        },
+        "journal-of-mathematical-logic": {
+          "support": 2,
+          "top3": 0.5
+        },
+        "journal-of-mathematical-physics": {
+          "support": 37,
+          "top3": 0.5945945945945946
+        },
+        "journal-of-number-theory": {
+          "support": 19,
+          "top3": 0.8421052631578947
+        },
+        "journal-of-physics-a-mathematical-and-theoretical": {
+          "support": 46,
+          "top3": 0.41304347826086957
+        },
+        "journal-of-pure-and-applied-algebra": {
+          "support": 20,
+          "top3": 0.2
+        },
+        "journal-of-the-american-mathematical-society": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "journal-of-the-european-mathematical-society": {
+          "support": 10,
+          "top3": 0.0
+        },
+        "journal-of-the-london-mathematical-society": {
+          "support": 12,
+          "top3": 0.0
+        },
+        "journal-of-topology": {
+          "support": 4,
+          "top3": 0.75
+        },
+        "journal-of-topology-and-analysis": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "l-enseignement-mathematique": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "mathematical-programming": {
+          "support": 11,
+          "top3": 0.5454545454545454
+        },
+        "mathematical-research-letters": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "mathematics-of-computation": {
+          "support": 10,
+          "top3": 0.3
+        },
+        "mathematische-annalen": {
+          "support": 17,
+          "top3": 0.23529411764705882
+        },
+        "mathematische-zeitschrift": {
+          "support": 19,
+          "top3": 0.10526315789473684
+        },
+        "memoirs-of-the-american-mathematical-society": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "michigan-mathematical-journal": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "new-york-journal-of-mathematics": {
+          "support": 6,
+          "top3": 0.3333333333333333
+        },
+        "nonlinearity": {
+          "support": 19,
+          "top3": 0.47368421052631576
+        },
+        "numerische-mathematik": {
+          "support": 7,
+          "top3": 0.7142857142857143
+        },
+        "pacific-journal-of-mathematics": {
+          "support": 10,
+          "top3": 0.1
+        },
+        "probability-theory-and-related-fields": {
+          "support": 7,
+          "top3": 0.7142857142857143
+        },
+        "proceedings-of-the-american-mathematical-society": {
+          "support": 36,
+          "top3": 0.16666666666666666
+        },
+        "proceedings-of-the-edinburgh-mathematical-society": {
+          "support": 6,
+          "top3": 0.16666666666666666
+        },
+        "proceedings-of-the-london-mathematical-society": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "publications-mathematiques-de-l-ihes": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "representation-theory": {
+          "support": 3,
+          "top3": 0.3333333333333333
+        },
+        "rocky-mountain-journal-of-mathematics": {
+          "support": 11,
+          "top3": 0.09090909090909091
+        },
+        "selecta-mathematica": {
+          "support": 8,
+          "top3": 0.125
+        },
+        "siam-journal-on-applied-mathematics": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "siam-journal-on-control-and-optimization": {
+          "support": 14,
+          "top3": 1.0
+        },
+        "siam-journal-on-financial-mathematics": {
+          "support": 4,
+          "top3": 0.75
+        },
+        "siam-journal-on-mathematics-of-data-science": {
+          "support": 4,
+          "top3": 1.0
+        },
+        "siam-journal-on-numerical-analysis": {
+          "support": 11,
+          "top3": 0.9090909090909091
+        },
+        "siam-journal-on-optimization": {
+          "support": 10,
+          "top3": 0.8
+        },
+        "the-annals-of-applied-probability": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "the-annals-of-probability": {
+          "support": 7,
+          "top3": 0.8571428571428571
+        },
+        "the-annals-of-statistics": {
+          "support": 10,
+          "top3": 0.9
+        },
+        "the-electronic-journal-of-combinatorics": {
+          "support": 19,
+          "top3": 0.3684210526315789
+        },
+        "the-journal-of-symbolic-logic": {
+          "support": 8,
+          "top3": 1.0
+        },
+        "topology-and-its-applications": {
+          "support": 25,
+          "top3": 0.68
+        },
+        "transactions-of-the-american-mathematical-society": {
+          "support": 24,
+          "top3": 0.125
+        }
+      },
+      "top1": 0.223,
+      "top3": 0.396,
+      "top5": 0.497
+    },
+    "retrieval": {
+      "candidate_recall_at_20": 0.85,
+      "conditional_top1": 0.24823529411764705,
+      "macro_top3": 0.314951528781158,
+      "mrr": 0.3548336897064064,
+      "n": 1000,
+      "per_journal": {
+        "acta-arithmetica": {
+          "support": 9,
+          "top3": 0.2222222222222222
+        },
+        "acta-mathematica": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "advances-in-mathematics": {
+          "support": 35,
+          "top3": 0.2571428571428571
+        },
+        "algebra-and-number-theory": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "algebraic-and-geometric-topology": {
+          "support": 10,
+          "top3": 0.4
+        },
+        "algebraic-combinatorics": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "algebraic-geometry": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "algebras-and-representation-theory": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "american-journal-of-mathematics": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "analysis-and-pde": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "annales-de-l-institut-henri-poincare-c-analyse-non-lineaire": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "annales-henri-poincare": {
+          "support": 10,
+          "top3": 0.3
+        },
+        "annales-scientifiques-de-l-ecole-normale-superieure": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "annals-of-mathematics": {
+          "support": 4,
+          "top3": 0.25
+        },
+        "annals-of-pure-and-applied-logic": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "archive-for-history-of-exact-sciences": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "archive-for-rational-mechanics-and-analysis": {
+          "support": 11,
+          "top3": 0.5454545454545454
+        },
+        "asterisque": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "bernoulli": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "bulletin-of-the-australian-mathematical-society": {
+          "support": 12,
+          "top3": 0.25
+        },
+        "bulletin-of-the-london-mathematical-society": {
+          "support": 13,
+          "top3": 0.23076923076923078
+        },
+        "combinatorica": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "commentarii-mathematici-helvetici": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "communications-in-mathematical-physics": {
+          "support": 24,
+          "top3": 0.7083333333333334
+        },
+        "communications-on-pure-and-applied-mathematics": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "compositio-mathematica": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "duke-mathematical-journal": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "ergodic-theory-and-dynamical-systems": {
+          "support": 11,
+          "top3": 0.6363636363636364
+        },
+        "forum-of-mathematics-pi": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "forum-of-mathematics-sigma": {
+          "support": 8,
+          "top3": 0.25
+        },
+        "foundations-of-computational-mathematics": {
+          "support": 4,
+          "top3": 0.5
+        },
+        "geometriae-dedicata": {
+          "support": 8,
+          "top3": 0.125
+        },
+        "geometric-and-functional-analysis": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "geometry-and-topology": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "glasgow-mathematical-journal": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "glasnik-matematicki": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "groups-geometry-and-dynamics": {
+          "support": 6,
+          "top3": 0.5
+        },
+        "historia-mathematica": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "ieee-transactions-on-information-theory": {
+          "support": 40,
+          "top3": 0.975
+        },
+        "international-mathematics-research-notices": {
+          "support": 30,
+          "top3": 0.26666666666666666
+        },
+        "inventiones-mathematicae": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "israel-journal-of-mathematics": {
+          "support": 13,
+          "top3": 0.3076923076923077
+        },
+        "journal-fur-die-reine-und-angewandte-mathematik": {
+          "support": 9,
+          "top3": 0.0
+        },
+        "journal-of-algebra": {
+          "support": 39,
+          "top3": 0.6410256410256411
+        },
+        "journal-of-algebraic-geometry": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "journal-of-combinatorial-theory-series-a": {
+          "support": 9,
+          "top3": 0.4444444444444444
+        },
+        "journal-of-combinatorial-theory-series-b": {
+          "support": 7,
+          "top3": 0.7142857142857143
+        },
+        "journal-of-differential-geometry": {
+          "support": 5,
+          "top3": 0.2
+        },
+        "journal-of-functional-analysis": {
+          "support": 22,
+          "top3": 0.6818181818181818
+        },
+        "journal-of-group-theory": {
+          "support": 6,
+          "top3": 0.16666666666666666
+        },
+        "journal-of-knot-theory-and-its-ramifications": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "journal-of-mathematical-biology": {
+          "support": 12,
+          "top3": 0.75
+        },
+        "journal-of-mathematical-logic": {
+          "support": 2,
+          "top3": 1.0
+        },
+        "journal-of-mathematical-physics": {
+          "support": 37,
+          "top3": 0.5675675675675675
+        },
+        "journal-of-number-theory": {
+          "support": 19,
+          "top3": 0.47368421052631576
+        },
+        "journal-of-physics-a-mathematical-and-theoretical": {
+          "support": 46,
+          "top3": 0.6304347826086957
+        },
+        "journal-of-pure-and-applied-algebra": {
+          "support": 20,
+          "top3": 0.35
+        },
+        "journal-of-the-american-mathematical-society": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "journal-of-the-european-mathematical-society": {
+          "support": 10,
+          "top3": 0.1
+        },
+        "journal-of-the-london-mathematical-society": {
+          "support": 12,
+          "top3": 0.0
+        },
+        "journal-of-topology": {
+          "support": 4,
+          "top3": 0.25
+        },
+        "journal-of-topology-and-analysis": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "l-enseignement-mathematique": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "mathematical-programming": {
+          "support": 11,
+          "top3": 0.7272727272727273
+        },
+        "mathematical-research-letters": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "mathematics-of-computation": {
+          "support": 10,
+          "top3": 0.5
+        },
+        "mathematische-annalen": {
+          "support": 17,
+          "top3": 0.058823529411764705
+        },
+        "mathematische-zeitschrift": {
+          "support": 19,
+          "top3": 0.2631578947368421
+        },
+        "memoirs-of-the-american-mathematical-society": {
+          "support": 5,
+          "top3": 0.0
+        },
+        "michigan-mathematical-journal": {
+          "support": 4,
+          "top3": 0.0
+        },
+        "new-york-journal-of-mathematics": {
+          "support": 6,
+          "top3": 0.3333333333333333
+        },
+        "nonlinearity": {
+          "support": 19,
+          "top3": 0.42105263157894735
+        },
+        "numerische-mathematik": {
+          "support": 7,
+          "top3": 0.7142857142857143
+        },
+        "pacific-journal-of-mathematics": {
+          "support": 10,
+          "top3": 0.2
+        },
+        "probability-theory-and-related-fields": {
+          "support": 7,
+          "top3": 0.14285714285714285
+        },
+        "proceedings-of-the-american-mathematical-society": {
+          "support": 36,
+          "top3": 0.19444444444444445
+        },
+        "proceedings-of-the-edinburgh-mathematical-society": {
+          "support": 6,
+          "top3": 0.0
+        },
+        "proceedings-of-the-london-mathematical-society": {
+          "support": 7,
+          "top3": 0.0
+        },
+        "publications-mathematiques-de-l-ihes": {
+          "support": 2,
+          "top3": 0.0
+        },
+        "representation-theory": {
+          "support": 3,
+          "top3": 0.0
+        },
+        "rocky-mountain-journal-of-mathematics": {
+          "support": 11,
+          "top3": 0.18181818181818182
+        },
+        "selecta-mathematica": {
+          "support": 8,
+          "top3": 0.0
+        },
+        "siam-journal-on-applied-mathematics": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "siam-journal-on-control-and-optimization": {
+          "support": 14,
+          "top3": 0.7857142857142857
+        },
+        "siam-journal-on-financial-mathematics": {
+          "support": 4,
+          "top3": 0.75
+        },
+        "siam-journal-on-mathematics-of-data-science": {
+          "support": 4,
+          "top3": 0.5
+        },
+        "siam-journal-on-numerical-analysis": {
+          "support": 11,
+          "top3": 0.9090909090909091
+        },
+        "siam-journal-on-optimization": {
+          "support": 10,
+          "top3": 0.6
+        },
+        "the-annals-of-applied-probability": {
+          "support": 10,
+          "top3": 0.7
+        },
+        "the-annals-of-probability": {
+          "support": 7,
+          "top3": 0.5714285714285714
+        },
+        "the-annals-of-statistics": {
+          "support": 10,
+          "top3": 0.9
+        },
+        "the-electronic-journal-of-combinatorics": {
+          "support": 19,
+          "top3": 0.6842105263157895
+        },
+        "the-journal-of-symbolic-logic": {
+          "support": 8,
+          "top3": 0.625
+        },
+        "topology-and-its-applications": {
+          "support": 25,
+          "top3": 0.68
+        },
+        "transactions-of-the-american-mathematical-society": {
+          "support": 24,
+          "top3": 0.08333333333333333
+        }
+      },
+      "top1": 0.211,
+      "top3": 0.406,
+      "top5": 0.514
+    }
+  },
+  "checks_pass": true,
+  "selection": "Epoch 2 fixed using validation before test scoring. No selection on test.",
+  "inference": "FP32 weights, BF16 autocast, strict arithmetic, full forward, unmerged; no prefix cache"
+}

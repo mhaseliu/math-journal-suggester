@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "journal-suggester"
+version = "1.0.0"
+description = "Reproducible mathematics journal retrieval and Kev ranking experiment"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "licenses/*"]
+readme = "README.md"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["numpy==2.3.3"]
+web = ["waitress==3.0.2"]
+
+[project.scripts]
+journal-suggester = "journal_suggester.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["journal_suggester*"]
+
+[tool.setuptools.package-data]
+journal_suggester = ["web/*.html", "web/*.css", "web/*.js", "resources/configs/*.json", "resources/data/*.csv", "resources/results/*.json", "resources/demo/*.jsonl"]

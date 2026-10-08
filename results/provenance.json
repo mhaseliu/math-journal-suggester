@@ -1,0 +1,18 @@
+{
+  "source_commit": "540cc7287590d8dae042ec60d91ddeaa6b6f1fee",
+  "original_test_code_sha256": {
+    "evaluation.py": "dd24b6cb2fe086a17b2a16298d012b0537893d63fc926196e75485d22ac1f510",
+    "examples.py": "c3e9674de7f7dd78881ad95ccc423f1694c127339c823e097fe44ce331755287",
+    "gb10_runtime.py": "6e5818892ab1611559b218cc491160a7b350fe89d905631584b4cf32fee4ba61",
+    "gpu.py": "e9c375858ee0365eaf90ed2f1e1a37dcfa4b3ca883b600efbe4ee835ee4f7936",
+    "input_audit.py": "c497f6ed592338ceee25af43a4297aa90dcf2c32d2fa850bc6ac295d8899a671",
+    "io.py": "df977af3f1e8c4bad700d829d0b60d59fe0ac1131beac95aa22978e10d9aa0c5",
+    "quality.py": "d165898536f9c689a615dac3e7d9295c860116ed03de8d096d5652d4192f8e1c",
+    "records.py": "cbd84b37d257af4122bb149e3ca32e76dad888a88b1fa79fbf79aab232d07779",
+    "retrieval.py": "c7ead5496b7c6abf5cc03d45cdac48e09fbea2d9f59d5011f4f95a3f7d81c001",
+    "run_test_evaluation.py": "704a36c438d396b3d3c4dca97c11be27b007f527bdac8d992328d0deee225751",
+    "web_ranker.py": "0cd30a7953cedc05c708503a6876c5df1d42b95c87d6f73f5d1a14ce9db1fc69"
+  },
+  "split_fingerprint": "93b4fca172caf56fc22930ccf993db6759bfa783996e4197a1bdb49619181493",
+  "release_note": "Public source is a portable refactoring. Reported results were measured before this refactoring; no retraining was performed for publication."
+}

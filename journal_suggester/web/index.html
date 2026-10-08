@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore mathematics journals through similar published research.">
+  <title>Math journal suggester</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23244237'/%3E%3Ctext x='10' y='29' fill='%23fff' font-family='Georgia' font-size='28'%3Ej%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#arxiv-url">Skip to paper input</a>
+<main>
+  <p id="demo-notice" class="hint" hidden>Synthetic demo: fictional supporting papers and lexical similarity; Qwen and Kev are not running.</p>
+  <header>
+    <h1>Math journal suggester</h1>
+    <nav class="page-nav" aria-label="Main navigation">
+      <a href="/" aria-current="page">Suggest journals</a>
+      <a href="/methodology">About</a>
+    </nav>
+  </header>
+
+  <section aria-label="Your manuscript">
+    <form id="arxiv-form" class="import-panel">
+      <label for="arxiv-url" class="field-label">arXiv link or ID (optional)</label>
+      <div class="url-row">
+        <input id="arxiv-url" type="text" placeholder="https://arxiv.org/abs/2012.05485" autocomplete="off" maxlength="300" aria-describedby="arxiv-help" required>
+        <button class="secondary" id="import-arxiv" type="submit">Fill title &amp; abstract</button>
+      </div>
+      <div class="import-help">
+        <span id="arxiv-help">Or paste your title and abstract below.</span>
+        <button class="text-button" id="try-example" type="button" data-arxiv="https://arxiv.org/abs/2012.05485">Try example: arXiv 2012.05485</button>
+      </div>
+    </form>
+    <p id="import-status" class="notice" role="status" hidden></p>
+
+    <form id="manuscript-form">
+      <div class="label-row">
+        <label for="paper-title" class="field-label">Paper title</label>
+        <button type="button" class="text-button" id="clear">Clear</button>
+      </div>
+      <textarea id="paper-title" rows="2" minlength="3" maxlength="2000" required placeholder="Paste or enter the paper title"></textarea>
+      <label for="abstract" class="field-label abstract-label">Abstract</label>
+      <textarea id="abstract" rows="7" minlength="40" maxlength="30000" required placeholder="Fill from arXiv or paste your abstract here."></textarea>
+      <button class="primary" id="suggest" type="submit">Find journals</button>
+    </form>
+  </section>
+
+  <section class="results-section" aria-labelledby="results-heading" aria-busy="false" hidden>
+    <h2 id="results-heading" tabindex="-1">Suggested journals</h2>
+    <p class="status" id="search-status" role="status" hidden></p>
+    <div id="results"></div>
+  </section>
+</main>
+</body>
+</html>

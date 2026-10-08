@@ -1,0 +1,18 @@
+{
+  "ledger": "data/processed/counts/eligible.jsonl",
+  "corpus_directory": "data/processed/corpus",
+  "artifact_directory": "artifacts/experiment",
+  "publication_counts": "data/publication-counts.json",
+  "train_queries": 0,
+  "validation_queries": 1000,
+  "test_queries": 1000,
+  "reference_target": 10000,
+  "minimum_per_journal": {
+    "validation": 1,
+    "test": 1,
+    "reference": 3
+  },
+  "collection_spares_per_journal": 3,
+  "seed": 42,
+  "note": "Evaluate released Kev on validation only; freeze test without embeddings or scoring. Reference target is independent of any future training budget."
+}
