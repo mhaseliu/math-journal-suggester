@@ -16,7 +16,9 @@ tags:
 
 Fine-tuned from [jaredpalmer/kev-4b](https://huggingface.co/jaredpalmer/kev-4b) with the pinned Qwen3.5-4B-Base model. Given a manuscript's title, abstract, and supporting excerpts, it ranks the supplied candidate journals.
 
-This package contains the **epoch-2 LoRA adapter, decision head, and tokenizer**. You also need the Qwen base model, embedding model, and reference corpus.
+**Availability:** The inference package is prepared but has not been publicly released. This repository contains the model card and export checks, not the weights.
+
+The prepared package contains the **epoch-2 LoRA adapter, decision head, and tokenizer**. You also need the Qwen base model, embedding model, and reference corpus.
 
 [Code and reproduction](https://github.com/mhaseliu/math-journal-suggester) · [Experiment](https://github.com/mhaseliu/math-journal-suggester/blob/main/docs/experiment.md)
 

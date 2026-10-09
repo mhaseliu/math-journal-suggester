@@ -2,17 +2,19 @@
 
 Recommend math journals from a title and abstract, with similar published papers as evidence. Qwen3-Embedding-8B retrieves 20 journals, then a fine-tuned Kev-4B reranks them.
 
-| Held-out test · 1,000 papers | Top 1 | Top 3 | Top 5 |
+[Live demo](https://journal-suggester.tail34e410.ts.net/) · [Experiment](docs/experiment.md) · [Reproduction guide](docs/reproduce.md)
+
+| Original-journal matching · 1,000 held-out papers | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
 | Qwen retrieval | 21.1% | 40.6% | 51.4% |
 | Qwen + released Kev | 22.3% | 39.6% | 49.7% |
 | **Qwen + fine-tuned Kev** | **51.3%** | **72.4%** | **78.2%** |
 
-The selected model improves Top 3 by **31.8 percentage points** over retrieval. The checkpoint was fixed using validation before scoring test. [Experiment](docs/experiment.md) · [Saved results](results/test.json) · [Model card](model/README.md).
+Kev was fine-tuned on 8,000 papers. The selected model improves Top 3 by **31.8 percentage points** over retrieval. The checkpoint was fixed using validation before scoring test. [Saved results](results/test.json) · [Model card](model/README.md).
 
 ## Quickstart
 
-Use Python 3.11 or newer. Check `python3 --version` and use a newer Python executable below if needed. Cloning requires GitHub access while this repository is private. These commands install the code and verify the saved results without a GPU:
+Use Python 3.11 or newer. Check `python3 --version` and use a newer Python executable below if needed. These commands install the code and verify the saved results without a GPU:
 
 ```bash
 git clone https://github.com/mhaseliu/math-journal-suggester.git
@@ -38,7 +40,7 @@ Keep the terminal running and open [http://127.0.0.1:8765](http://127.0.0.1:8765
 
 The repository includes the code, records identifying which papers belong to each dataset split, and checksums for verifying the original paper records. It also includes overall results and each method's predictions for individual test papers, so the reported accuracy can be checked without rerunning the models.
 
-**Collected titles/abstracts, reference vectors, upstream weights, credentials, and private deployment settings are excluded.** The fine-tuned adapter is packaged for a separate Hugging Face release. See the model card for availability.
+**Collected titles/abstracts, reference vectors, upstream weights, credentials, and private deployment settings are excluded.** The fine-tuned adapter has **not been publicly released**. A verified inference package has been prepared; see the [model card](model/README.md) for its contents and requirements.
 
 ## Scope
 
