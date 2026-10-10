@@ -76,3 +76,5 @@ python -m journal_suggester.experiment evaluate --root artifacts/experiment --te
 ```
 
 This loads the checkpoint already selected by validation, checks its predictions after reload, and scores the original 1,000 test papers without training or selecting another checkpoint.
+
+Add `--released` to the evaluation command to score released Kev before journal fine-tuning. It uses the same test papers, journal ordering, precision, and scoring code, with results saved separately.

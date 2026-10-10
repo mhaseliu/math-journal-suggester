@@ -24,19 +24,21 @@
   <section aria-labelledby="how-heading">
     <h2 id="how-heading">How recommendations work</h2>
     <p>Kev scores all 95 journal names from the manuscript’s title and abstract. The five recommendations are numbered 1–5 in descending score order. Journal names appear in a fixed alphabetical order inside the model’s request.</p>
-    <p>After journals are ranked, Qwen3-Embedding-8B finds similar published papers within those journals. These examples do not affect Kev’s ranking and are not inputs to Kev.</p>
+    <p>Similar published papers are retrieved after journals are ranked. These examples do not affect Kev’s recommendations.</p>
   </section>
   <section aria-labelledby="data-heading">
     <h2 id="data-heading">Data collection</h2>
-    <p>The dataset covers 95 journals and series published from 2016 through 2025. Training uses 8,000 papers, with separate sets of 1,000 validation and 1,000 test papers. Sampling approximately follows publication counts. Validation and test each include at least one paper per journal.</p>
+    <p>The dataset contains papers published from 2016 through 2025 in 95 journals and series. Training uses 8,000 papers, with separate sets of 1,000 validation and 1,000 test papers. Sampling approximately follows publication counts. Validation and test each include at least one paper per journal.</p>
     <p>Publication records and available abstracts come from Crossref, OpenAlex, publishers, and arXiv, with identity checks before matching.</p>
     <p>IHÉS, Annals, Acta Mathematica, Inventiones, and JAMS account for 105 training papers and 18 validation papers. Limited training coverage may contribute to weaker performance.</p>
   </section>
   <section aria-labelledby="test-results-heading">
     <h2 id="test-results-heading">Test results</h2>
-    <p>The fixed epoch-2.5 checkpoint was evaluated on all 1,000 test papers. Top 1, Top 3, and Top 5 measure whether the actual publication journal appears among the first one, three, or five recommendations.</p>
+    <p>We compared released Kev, before our journal fine-tuning, with the fixed epoch-2.5 checkpoint. Both scored the same 95 journals for the same 1,000 test papers on a B300. Top 1, Top 3, and Top 5 measure whether the actual publication journal appears among the first one, three, or five recommendations.</p>
     <table><thead><tr><th scope="col">Model</th><th scope="col">Top 1</th><th scope="col">Top 3</th><th scope="col">Top 5</th></tr></thead>
-    <tbody><tr><th scope="row"><strong>Fine-tuned Kev</strong></th><td><strong>57.2%</strong></td><td><strong>78.9%</strong></td><td><strong>85.3%</strong></td></tr></tbody></table>
+    <tbody><tr><th scope="row">Released Kev</th><td>15.7%</td><td>29.8%</td><td>37.3%</td></tr>
+    <tr><th scope="row"><strong>Fine-tuned Kev</strong></th><td><strong>57.2%</strong></td><td><strong>78.9%</strong></td><td><strong>85.3%</strong></td></tr></tbody></table>
+    <p>Fine-tuning improved Top 3 accuracy by <strong>49.1 percentage points</strong>.</p>
     <p>Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development. It is not a fresh external evaluation.</p>
     <p class="record-links"><a href="/methodology/records/test.json">Test results (JSON)</a></p>
   </section>

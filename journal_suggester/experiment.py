@@ -67,6 +67,7 @@ def select(
         ):
             raise ValueError(f"Unexpected {part} count or journal coverage")
     _check_isolation(parts)
+    test_hash = digest(parts["test"])
     test = [_identity_record(p) for p in parts.pop("test")]
     for part, rows in parts.items():
         write_jsonl(root / f"source/{part}.jsonl", rows)
@@ -92,6 +93,7 @@ def select(
             p["paper_id"] in train_ids for p in parts["screen"]
         ),
         "test_identities": len(test),
+        "test_hash": test_hash,
         "test_text_included": False,
         "test_scored": False,
     }
@@ -118,7 +120,7 @@ def prepare(root):
     )
 
 
-def evaluate(root, test_papers):
+def evaluate(root, test_papers, *, released_baseline=False):
     """Score the validation-selected checkpoint once. Test never selects weights."""
     from .training.train import (
         load_inputs,
@@ -129,7 +131,7 @@ def evaluate(root, test_papers):
     )
 
     root = Path(root)
-    output = root / "evaluation/test"
+    output = root / ("evaluation/released" if released_baseline else "evaluation/test")
     if output.exists():
         raise ValueError("Preserve the existing test evaluation")
     prepared, inputs = load_inputs(root, "full")
@@ -143,6 +145,8 @@ def evaluate(root, test_papers):
     ):
         raise ValueError("A completed validation-selected full run is required")
     papers = read_jsonl(test_papers)
+    if digest(papers) != read_json(root / "selection.json")["test_hash"]:
+        raise ValueError("Test paper content differs from the frozen selection")
     if [_identity_record(p) for p in papers] != read_jsonl(
         root / "source/test-identities.jsonl"
     ):
@@ -156,7 +160,8 @@ def evaluate(root, test_papers):
         output / "selection.json",
         {
             "checkpoint_hashes": checkpoint_hashes,
-            "selected_epoch": result["selected"]["epoch"],
+            "selected_epoch": None if released_baseline else result["selected"]["epoch"],
+            "evaluated_model": "released_kev" if released_baseline else "fine_tuned_kev",
             "test_hash": digest(papers),
             "optimizer_updates": 0,
         },
@@ -196,6 +201,25 @@ def evaluate(root, test_papers):
         )
     ):
         raise ValueError("Selected-checkpoint reload parity failed")
+    baseline = None
+    if released_baseline:
+        import gc
+        from .kev_runtime import released
+        del model, tokenizer
+        gc.collect()
+        torch.cuda.empty_cache()
+        baseline = Checkpoint(released(prepared["models"]))
+        baseline_hashes = {
+            "weights_sha256": baseline.weights_sha256(),
+            "head_sha256": hashlib.sha256(Path(baseline.file("head.pt")).read_bytes()).hexdigest(),
+        }
+        if baseline_hashes != result["warm_start"]:
+            raise ValueError("Baseline differs from the released weights used to start training")
+        tokenizer, model = baseline.load("cuda", LoadOptions(
+            dtype=torch.float32, merge=False, fused=False, cuda_graphs=False))
+    model.eval()
+    for parameter in model.parameters():
+        parameter.requires_grad_(False)
     requests, metadata = [], []
     catalog = read_json(root / "source/journals.json")
     for paper in papers:
@@ -230,52 +254,61 @@ def evaluate(root, test_papers):
     if any(hashlib.sha256((checkpoint / name).read_bytes()).hexdigest() != value
            for name, value in checkpoint_hashes.items()):
         raise ValueError("Selected checkpoint changed during evaluation")
+    if baseline is not None:
+        if baseline_hashes != {
+            "weights_sha256": baseline.weights_sha256(),
+            "head_sha256": hashlib.sha256(Path(baseline.file("head.pt")).read_bytes()).hexdigest(),
+        }:
+            raise ValueError("Released weights changed during evaluation")
+        report["released_weights"] = baseline_hashes
+        report["model_revision"] = prepared["models"]["kev_revision"]
+    report["model"] = "released_kev" if released_baseline else "fine_tuned_kev"
+    report["optimizer_updates"] = 0
     write_json(output / "result.json", report)
     return report["metrics"]
 
 
-def verify_results(directory="results", identifiers="data/splits"):
-    """Recompute accuracy without a GPU, network, or manuscript text."""
+def verify_predictions(path, identities, candidates, expected, expected_hash):
+    """Check saved probabilities, identities, ranking, accuracy, and file checksum."""
     from .evaluation import metrics
-
-    directory = Path(directory)
-    rows = read_jsonl(directory / "predictions/kev_only.jsonl")
-    expected = read_json(directory / "test.json")
-    identities = read_jsonl(Path(identifiers) / "test.jsonl")
-    candidates = [j["journal_id"] for j in ordered_journals(journals())]
-    if (
-        len(rows) != 1000
-        or len({r["paper_id"] for r in rows}) != 1000
-        or [(r["paper_id"], r["target"]) for r in rows]
-        != [(p["paper_id"], p["journal_id"]) for p in identities]
-    ):
+    rows = read_jsonl(path)
+    if (len(rows) != 1000 or len({r["paper_id"] for r in rows}) != 1000
+            or [(r["paper_id"], r["target"]) for r in rows]
+            != [(p["paper_id"], p["journal_id"]) for p in identities]):
         raise ValueError("Test predictions differ from published identities")
     for row in rows:
         probs = row["probabilities"]
-        if (
-            row["candidates"] != candidates
-            or set(probs) != set(candidates)
-            or not all(math.isfinite(p) and 0 <= p <= 1 for p in probs.values())
-            or not math.isclose(sum(probs.values()), 1, abs_tol=1e-5)
-            or row["ranking"] != sorted(probs, key=lambda j: (-probs[j], j))
-        ):
+        if (row["candidates"] != candidates or set(probs) != set(candidates)
+                or not all(math.isfinite(p) and 0 <= p <= 1 for p in probs.values())
+                or not math.isclose(sum(probs.values()), 1, abs_tol=1e-5)
+                or row["ranking"] != sorted(probs, key=lambda j: (-probs[j], j))):
             raise ValueError("Invalid probabilities, journal order, or ranking")
     measured = metrics(rows, 95)
     for key in ("top1", "top3", "top5", "macro_top3"):
-        if not math.isclose(measured[key], expected["metrics"][key], abs_tol=1e-12):
+        if not math.isclose(measured[key], expected[key], abs_tol=1e-12):
             raise ValueError(f"Reported {key} differs from saved predictions")
-    verification = read_json(directory / "verification.json")
-    sha = hashlib.sha256(
-        (directory / "predictions/kev_only.jsonl").read_bytes()
-    ).hexdigest()
-    if sha != verification["test_predictions_sha256"]:
+    if hashlib.sha256(Path(path).read_bytes()).hexdigest() != expected_hash:
         raise ValueError("Saved prediction file changed")
-    return {
-        "checks_pass": True,
-        "test_papers": len(rows),
-        "model_calls": 0,
-        "metrics": {k: measured[k] for k in ("top1", "top3", "top5")},
-    }
+    return rows, {k: measured[k] for k in ("top1", "top3", "top5")}
+
+
+def verify_results(directory="results", identifiers="data/splits"):
+    """Recompute both methods without a GPU, network, or manuscript text."""
+    directory = Path(directory)
+    identities = read_jsonl(Path(identifiers) / "test.jsonl")
+    candidates = [j["journal_id"] for j in ordered_journals(journals())]
+    expected = read_json(directory / "test.json")
+    verification = read_json(directory / "verification.json")
+    rows, measured = verify_predictions(directory / "predictions/kev_only.jsonl", identities,
+        candidates, expected["metrics"], verification["test_predictions_sha256"])
+    result = {"checks_pass": True, "test_papers": len(rows), "model_calls": 0, "metrics": measured}
+    if "released_predictions_sha256" in verification:
+        baseline = read_json(directory / "released-baseline.json")
+        other, result["released_kev"] = verify_predictions(directory / "predictions/released_kev.jsonl",
+            identities, candidates, baseline["metrics"], verification["released_predictions_sha256"])
+        if any(a["request_hash"] != b["request_hash"] for a, b in zip(rows, other)):
+            raise ValueError("Baseline and fine-tuned test requests differ")
+    return result
 
 
 def main():
@@ -293,6 +326,7 @@ def main():
     p = sub.add_parser("evaluate")
     p.add_argument("--root", required=True)
     p.add_argument("--test-papers", required=True)
+    p.add_argument("--released", action="store_true", help="Score released Kev before journal fine-tuning")
     p = sub.add_parser("verify-results")
     p.add_argument("--directory", default="results")
     p.add_argument("--identifiers", default="data/splits")
@@ -307,7 +341,7 @@ def main():
         result = run(args.root, args.mode)
         result = {key: result[key] for key in ("status", "checks_pass")}
     elif args.command == "evaluate":
-        result = evaluate(args.root, args.test_papers)
+        result = evaluate(args.root, args.test_papers, released_baseline=args.released)
     else:
         result = verify_results(args.directory, args.identifiers)
     print(json.dumps(result, indent=2))

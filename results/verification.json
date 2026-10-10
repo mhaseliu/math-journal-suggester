@@ -1,5 +1,7 @@
 {
   "checks_pass": true,
+  "matched_test_requests_verified": 1000,
+  "released_predictions_sha256": "0f4ea126f83e40f5947e1222f766e68039d00d7411c6dadbd303188a73b036c8",
   "test_predictions_sha256": "ea5454b2bec66b320061dfbe2e8db0eeb6aeea498128807a06b4b0d403cf3e0d",
   "test_probabilities_and_rankings_verified": true,
   "validation_reload": {

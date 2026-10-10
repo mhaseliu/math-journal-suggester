@@ -30,12 +30,15 @@ Training ran on a B300 with FP32 stored weights, BF16 autocast, and verified fas
 
 ## Test
 
-| Papers | Top 1 | Top 3 | Top 5 |
+| Model | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
-| 1,000 | **57.2%** | **78.9%** | **85.3%** |
+| Released Kev | 15.7% | 29.8% | 37.3% |
+| Fine-tuned Kev | **57.2%** | **78.9%** | **85.3%** |
+
+Both models scored the same 1,000 test papers with identical requests, all 95 journal names, precision, and B300 scoring code. Released Kev is the pretrained model before our journal fine-tuning. Fine-tuning improved Top 3 accuracy by **49.1 percentage points**.
 
 Top 1, Top 3, and Top 5 measure whether the observed publication journal appears among the first one, three, or five recommendations. All 95 journals are candidates for every paper. Evaluation used the fixed epoch-2.5 checkpoint, with no additional training or test-based selection.
 
 Test papers were excluded from training and validation. The benchmark had been examined during earlier project development, so this is not a fresh external evaluation. Results use one split and do not establish performance on future publications.
 
-[Saved predictions](../results/predictions/kev_only.jsonl) · [Test results](../results/test.json) · [Tuning results](../results/tuning.json).
+[Fine-tuned predictions](../results/predictions/kev_only.jsonl) · [Baseline predictions](../results/predictions/released_kev.jsonl) · [Baseline checks](../results/released-baseline.json) · [Test results](../results/test.json) · [Tuning results](../results/tuning.json).

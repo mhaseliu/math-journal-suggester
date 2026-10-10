@@ -1,0 +1,52 @@
+{
+  "candidate_count": 95,
+  "candidate_order": "alphabetical",
+  "checkpoint_selection_on_test": false,
+  "checks_pass": true,
+  "cross_entropy": 3.6340320348739623,
+  "environment": {
+    "backend": "modal-b300",
+    "cuda_memory_gib": 32,
+    "fast_kernels_verified": true,
+    "versions": {
+      "causal-conv1d": "1.7.0",
+      "fla-core": "0.5.2",
+      "peft": "0.21.0",
+      "torch": "2.12.1+cu132",
+      "transformers": "5.17.0",
+      "triton": "3.7.1"
+    }
+  },
+  "fine_tuned_metrics": {
+    "macro_top3": 0.7015940788595605,
+    "top1": 0.572,
+    "top3": 0.789,
+    "top5": 0.853
+  },
+  "fine_tuned_predictions_sha256": "ea5454b2bec66b320061dfbe2e8db0eeb6aeea498128807a06b4b0d403cf3e0d",
+  "matched_test_requests_verified": 1000,
+  "metrics": {
+    "macro_top3": 0.3181225140979447,
+    "top1": 0.157,
+    "top3": 0.298,
+    "top5": 0.373
+  },
+  "model": "jaredpalmer/kev-4b",
+  "model_revision": "6cfce5c2fa4b4bd64026336ab649c5ca78857d52",
+  "optimizer_updates": 0,
+  "predictions_sha256": "0f4ea126f83e40f5947e1222f766e68039d00d7411c6dadbd303188a73b036c8",
+  "released_weights": {
+    "head_sha256": "dd633435998ecc751ac538717a3742e32149500fabf7d7276287dbf0693f347c",
+    "weights_sha256": "90e817356246e7f18bfa7ca3d31794cd4fbeb3332a66a84cb51d9ceae925f2b2"
+  },
+  "seconds_total": 90.692909959,
+  "test_hash": "975c99f558d4725798c9607ae482de56389ca3369a4026b7862ef1cd3c475539",
+  "test_inputs_sha256": "04f81d340e7586ed123e13a15b86557471f6d0bacc8ddd505b0331daff790a83",
+  "test_papers": 1000,
+  "top3_improvement_percentage_points": 49.1,
+  "validation_parity": {
+    "checks_pass": true,
+    "max_probability_delta": 0.0,
+    "papers": 8
+  }
+}

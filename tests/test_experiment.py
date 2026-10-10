@@ -1,4 +1,6 @@
 from pathlib import Path
+import hashlib
+import shutil
 import tempfile
 import unittest
 
@@ -71,6 +73,7 @@ class ExperimentTests(unittest.TestCase):
         self.assertEqual(
             read_jsonl(self.root / "output/source/train.jsonl"), self.parts["reference"]
         )
+        self.assertEqual(read_json(self.root / "output/selection.json")["test_hash"], digest(self.parts["test"]))
         test = read_jsonl(self.root / "output/source/test-identities.jsonl")
         self.assertEqual(len(test), 1000)
         self.assertTrue(
@@ -108,3 +111,19 @@ class ExperimentTests(unittest.TestCase):
         self.assertEqual(
             result["metrics"], {"top1": 0.572, "top3": 0.789, "top5": 0.853}
         )
+
+    def test_baseline_requests_must_match_fine_tuned_requests(self):
+        copied = self.root / "saved-results"
+        shutil.copytree("results", copied)
+        path = copied / "predictions/released_kev.jsonl"
+        rows = read_jsonl(path)
+        rows[0]["request_hash"] = "changed"
+        write_jsonl(path, rows)
+        verification = read_json(copied / "verification.json")
+        verification["released_predictions_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        write_json(copied / "verification.json", verification)
+        with self.assertRaisesRegex(ValueError, "test requests differ"):
+            verify_results(copied)
+
+    def test_released_baseline_scores_recompute_without_models(self):
+        self.assertEqual(verify_results()["released_kev"], {"top1": 0.157, "top3": 0.298, "top5": 0.373})
