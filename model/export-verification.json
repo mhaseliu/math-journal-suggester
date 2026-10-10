@@ -1,11 +1,17 @@
 {
+  "adapter_bytes_unchanged": true,
   "checks_pass": true,
   "head_tensors_bitwise_identical": true,
-  "adapter_bytes_unchanged": true,
+  "inference_metadata_unchanged": true,
+  "manifest_sha256": "315fbd5e56dbe29fdaee915e8a2300d115afe4e865a4f93900ba435f2b987335",
   "removed_metadata_fields": [
     "args",
+    "experiment",
     "init_source"
   ],
-  "original_manifest_sha256": "53aba6325cd9821b54ff11c38bd2135e121d1c65a51fb1cd07cddd02de87d800",
-  "public_manifest_sha256": "41a6351032225874bb700832abcb744195515011531633ab8961914a89fdcd82"
+  "source_weights_sha256": {
+    "adapter_config.json": "7ed2ad94f09a217e43794b80ad13881c2393b18a58e2a4910788a573452a778b",
+    "adapter_model.safetensors": "7e4f4a15d201758fb099d172f872ecd3103099f1e6541af9bcba44e7e389aa2e",
+    "head.pt": "5bd8a0b5d2087d9d3e698f0c899debc91433806325c89daa2c54e7407153e71f"
+  }
 }

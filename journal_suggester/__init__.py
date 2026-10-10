@@ -1,1 +1,1 @@
-"""Mathematics journal recommender. No model imports on the data-only path."""
+"""Math journal recommendations. CPU utilities do not load models."""

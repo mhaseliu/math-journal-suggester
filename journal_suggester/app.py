@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .paper_import import ArxivImporter
-from .web_service import DEFAULT_SPLIT, SSHSearchService, SearchService
+from .web_service import SearchService
 
 STATIC = Path(__file__).with_name("web")
 ASSETS = {"/": ("index.html", "text/html"), "/methodology": ("methodology.html", "text/html"),
@@ -15,12 +15,11 @@ ROOT = STATIC.parents[1]
 # Only aggregate experiment records are served; never expose the artifact/data directories.
 from .resources import ROOT as RESOURCE_ROOT
 RECORDS = {
-    "/methodology/records/tuning-b300.json": RESOURCE_ROOT / "results/tuning.json",
-    "/methodology/records/training-8000-preflight.json": RESOURCE_ROOT / "results/data-audit.json",
-    "/methodology/records/training-8000-config.json": RESOURCE_ROOT / "configs/training-8000.json",
-    "/methodology/records/models.json": RESOURCE_ROOT / "configs/models.json",
+    "/methodology/records/test.json": RESOURCE_ROOT / "results/test.json",
+    "/methodology/records/training.json": RESOURCE_ROOT / "results/training.json",
+    "/methodology/records/tuning.json": RESOURCE_ROOT / "results/tuning.json",
+    "/methodology/records/config.json": RESOURCE_ROOT / "results/config.json",
 }
-
 
 
 def make_server(service, port=8765, importer=None):
@@ -105,15 +104,11 @@ def make_server(service, port=8765, importer=None):
     return ThreadingHTTPServer(("127.0.0.1", port), Handler)
 
 
-def serve(split_dir=DEFAULT_SPLIT, port=8765, vectors=None, kev_run=None, ssh_backend=None):
-    if ssh_backend and (vectors or kev_run):
-        raise ValueError("Choose either SSH inference or direct GB10 vectors")
-    service = SSHSearchService(ssh_backend) if ssh_backend else SearchService(split_dir, vectors, kev_run)
+def serve(split_dir=None, port=8765, vectors=None, kev_run=None):
+    service = SearchService(split_dir, vectors, kev_run)
     server = make_server(service, port)
     print(f"{service.info()['mode']}: http://127.0.0.1:{server.server_port}", flush=True)
     try:
         server.serve_forever()
     finally:
         server.server_close()
-        if isinstance(service, SSHSearchService):
-            service.close()

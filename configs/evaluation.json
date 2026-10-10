@@ -14,5 +14,5 @@
   },
   "collection_spares_per_journal": 3,
   "seed": 42,
-  "note": "Evaluate released Kev on validation only; freeze test without embeddings or scoring. Reference target is independent of any future training budget."
+  "note": "Collection targets for the frozen reference, validation, and test pools. Kev training selections are recorded separately in data/splits."
 }

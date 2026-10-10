@@ -6,7 +6,9 @@ from journal_suggester.corpus import openalex_match, ordered_candidates, publish
 from journal_suggester.io import read_jsonl, write_json, write_jsonl
 from journal_suggester.records import deduplicate, identities
 from journal_suggester.splits import floor_quotas, split
-from test_pipeline import paper
+def paper(i, journal="j"):
+    return {"paper_id": f"p{i}", "title": f"Mathematical title {i}", "abstract": "A sufficiently long mathematical abstract about rings and algebra.",
+            "journal_id": journal, "year": 2020, "doi": f"10.1234/{i}", "arxiv_id": "", "url": f"https://doi.org/10.1234/{i}"}
 
 
 class EvaluationCorpusTests(unittest.TestCase):
@@ -67,20 +69,6 @@ class EvaluationCorpusTests(unittest.TestCase):
         body = '<strong>DOI :</strong> 10.1/other<div class="product__data-resume data-english">Some abstract</div>'
         self.assertEqual(publisher_abstract(p, body), "")
 
-    def test_validation_preparation_does_not_open_test(self):
-        from journal_suggester.io import journals
-        from journal_suggester.pipeline import prepare
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp)
-            jid = journals()[0]["journal_id"]
-            refs, _ = deduplicate([paper(i, jid) for i in range(3)])
-            val, _ = deduplicate([paper(10, jid)])
-            write_jsonl(path / "split/reference.jsonl", refs)
-            write_jsonl(path / "split/validation.jsonl", val)
-            write_json(path / "split/manifest.json", {"fingerprint": "frozen"})
-            result = prepare(path / "split", path / "out", partitions=["validation"])
-            self.assertEqual(result["validation"]["n"], 1)
-            self.assertFalse((path / "out/test.jsonl").exists())
 
     def test_collector_resume_uses_completed_journal_without_network(self):
         from unittest.mock import patch

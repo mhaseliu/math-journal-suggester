@@ -3,8 +3,6 @@ import importlib.metadata
 import json
 import random
 
-from .io import read_json
-
 
 def verify_kev_revision(expected):
     provenance = json.loads(importlib.metadata.distribution("kev").read_text("direct_url.json"))
@@ -19,19 +17,3 @@ def ordered_variants(request, args, epoch, pairs=None):
         raise ValueError("Fixed-order training requires all option augmentations disabled")
     rng = random.Random(source_seed(args.seed, f"{epoch}:{request['_meta']['id']}"))
     return [request], rng
-
-
-def main():
-    from .gpu import require_gb10
-    require_gb10(36)
-    verify_kev_revision(read_json("configs/models.json")["kev_code_revision"])
-    import kev.train as trainer
-    # The pinned augment() always shuffles choices, even with p_* = 0.
-    # Override just the variant builder; optimizer, loss, batching and saving stay native.
-    trainer.record_variants = ordered_variants
-    print("Fixed candidate/evidence order; native option augmentation disabled", flush=True)
-    trainer.main()
-
-
-if __name__ == "__main__":
-    main()

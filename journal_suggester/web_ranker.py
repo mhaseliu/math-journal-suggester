@@ -5,8 +5,8 @@ import math
 import time
 from pathlib import Path
 
-from .gpu import require_gb10
-from .io import read_json, request_digest
+from .cloud_runtime import require_training_gpu
+from .io import read_json, request_digest, journals
 from .ordered_train import verify_kev_revision
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,7 +48,7 @@ class WebsiteRanker:
         self.manifest = verify_checkpoint(run, specification, models)
         verify_kev_revision(models["kev_code_revision"])
         self.config = {**models, **CONTEXT}
-        self.torch = torch = require_gb10(28)
+        self.torch = torch = require_training_gpu(28)
         torch.set_num_threads(4)
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
@@ -106,6 +106,9 @@ class WebsiteRanker:
                                     max_branch=training_context(self.config["max_state"])["max_branch"], strict=True)
         if len(encoded["ids"]) > self.config["max_request"] or len(metadata) != 1:
             raise ValueError("Website request exceeds the evaluated inference budget")
+        if (encoded.get('state_truncated') or len(encoded['opt_idx']) != 1
+                or len(encoded['opt_idx'][0]) != len(metadata[0]['keys'])):
+            raise ValueError('Inference must preserve every candidate and the complete bounded input')
         with self.torch.inference_mode(), self.torch.autocast("cuda", dtype=self.torch.bfloat16):
             probabilities = self.model.forward_batch([encoded])[0][0].float().softmax(-1).cpu().tolist()
         keys = metadata[0]["keys"]
@@ -113,3 +116,33 @@ class WebsiteRanker:
                 or not math.isclose(sum(probabilities), 1, abs_tol=1e-5)):
             raise ValueError("Invalid Kev probabilities")
         return dict(zip(keys, probabilities))
+
+
+class KevOnlyRanker(WebsiteRanker):
+    """Score all journal names with the request format used in evaluation."""
+
+    def __init__(self, run, models=None):
+        super().__init__(run, models)
+        from .journal_choice import ordered_journals
+        self.catalog = ordered_journals(journals())
+        self.ids = [row['journal_id'] for row in self.catalog]
+        self.names = [row['journal_name'] for row in self.catalog]
+        expected = {'candidate_ids': self.ids, 'choice_keys': self.names,
+                    'candidate_order': 'alphabetical', 'query_tokens': 768,
+                    'max_state': 5504, 'max_request': 6144}
+        if self.manifest.get('architecture') != 'kev-only' or self.manifest.get('input_format') != expected:
+            raise ValueError('Checkpoint does not use the evaluated 95-journal input format')
+
+    def predict(self, request):
+        question = request['questions'].get('journal', {})
+        criteria = question.get('criteria', {})
+        if (set(request['questions']) != {'journal'} or list(criteria) != self.names
+                or any(value is not None for value in criteria.values())):
+            raise ValueError('All 95 journal names must appear in the fixed order, without evidence')
+        probabilities = super().predict(request)
+        return {journal: probabilities[name] for journal, name in zip(self.ids, self.names)}
+
+    def recommend(self, query):
+        from .journal_choice import build_request
+        request, _ = build_request(query, self.catalog, self.tokenizer, config=self.config)
+        return self.predict(request)

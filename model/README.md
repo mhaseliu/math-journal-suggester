@@ -7,55 +7,56 @@ library_name: kev
 tags:
 - mathematics
 - journal-recommendation
-- reranking
 - lora
 - kev
 ---
 
 # Kev for math journal recommendations
 
-Fine-tuned from [jaredpalmer/kev-4b](https://huggingface.co/jaredpalmer/kev-4b) with the pinned Qwen3.5-4B-Base model. Given a manuscript's title, abstract, and supporting excerpts, it ranks the supplied candidate journals.
+Fine-tuned from [jaredpalmer/kev-4b](https://huggingface.co/jaredpalmer/kev-4b) to recommend math journals from a paper’s title and abstract. The model scores all 95 journal names in alphabetical order, without supporting papers or journal descriptions.
 
-This package contains the **epoch-2 LoRA adapter, decision head, and tokenizer**. You also need the Qwen base model, embedding model, and reference corpus.
+This package contains the **epoch-2.5 LoRA adapter, decision head, and tokenizer**. It requires the pinned Qwen3.5-4B-Base backbone. Journal ranking does not require an embedding model or reference corpus.
 
-[Code and reproduction](https://github.com/mhaseliu/math-journal-suggester) · [Experiment](https://github.com/mhaseliu/math-journal-suggester/blob/main/docs/experiment.md)
+[Code and setup](https://github.com/mhaseliu/math-journal-suggester) · [Experiment](https://github.com/mhaseliu/math-journal-suggester/blob/main/docs/experiment.md)
 
 ## Results
 
-All methods used the same 1,000 test papers and Top 20 retrieved candidates. Epoch 2 was selected using validation before testing.
-
-| Method | Top 1 | Top 3 | Top 5 |
+| Test papers | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
-| Qwen retrieval | 21.1% | 40.6% | 51.4% |
-| Qwen + released Kev | 22.3% | 39.6% | 49.7% |
-| **Qwen + this adapter** | **51.3%** | **72.4%** | **78.2%** |
+| 1,000 | **57.2%** | **78.9%** | **85.3%** |
 
-Accuracy includes all papers, including 150 whose actual journal was not retrieved. The code repository contains predictions for each paper and code to verify the results.
+The checkpoint was fixed using validation before this evaluation. Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development. Saved per-paper predictions and verification code are available in the code repository.
 
 ## Training
 
-Training used 8,000 papers from 95 math journals and series published from 2016 through 2025. Validation and test each contained 1,000 papers, with all versions excluded from training and references. Metadata and abstracts came from Crossref, publishers, OpenAlex, and arXiv.
+Training used 8,000 papers from 95 math journals and series published from 2016 through 2025. Validation and test each contained 1,000 papers. The title and abstract are capped at 768 tokens. All 95 journal names remain in every request.
 
-We updated Kev's LoRA adapter and decision head with AdamW, a peak learning rate of `4e-5`, and a five-epoch OneCycle schedule. Each update accumulated gradients from eight single-paper batches. Validation ran every half epoch. Training stopped early at epoch 3.5, and epoch 2 was selected.
+We continued training released Kev’s LoRA adapter and decision head using AdamW, a peak learning rate of `4e-5`, and a five-epoch OneCycle schedule. Each update accumulated eight single-paper batches. Validation ran every half epoch. Training stopped after three checks without a new best validation Top 3 score, following a minimum of two epochs. It stopped at epoch 4 and selected epoch 2.5, preferring the earlier checkpoint on ties.
 
-Training used a B300 with FP32 weights, BF16 autocast, and verified fast kernels. TF32 and reduced-precision accumulation were disabled. Final inference ran on an ASUS Ascent GX10 with an NVIDIA GB10 chip. The experiment used one seed and one split.
+Training and test evaluation ran on a B300 with FP32 stored weights and BF16 autocast. TF32 and reduced-precision accumulation were disabled. The experiment used one seed and one split.
 
 ## Use
 
-Set up the GPU environment described in the code repository. Place the complete model package in `checkpoints/kev-math-epoch2`, then supply your reference corpus and Qwen3-Embedding-8B vectors:
+Install the code and pinned GPU environment from the reproduction guide. Download this complete model package and run:
 
 ```bash
-journal-suggester serve --split artifacts/experiment/splits --vectors artifacts/experiment/vectors --kev-run checkpoints/kev-math-epoch2
+journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
 ```
 
-The Kev loader verifies the inference-file manifest and runs full-forward inference with FP32 weights and BF16 autocast. Load the adapter through Kev so its decision head is included.
+For a JSON file containing `title` and `abstract`:
+
+```bash
+journal-suggester suggest --kev-run checkpoints/kev-math-journal-suggester --paper paper.json
+```
+
+The loader verifies the model checksums and uses the evaluated request format and precision. Load through the project or Kev so the decision head is included. Loading only the LoRA adapter through a text-generation interface does not reproduce these recommendations.
 
 ## Limitations
 
-The model matches papers to their observed publication venues. It does not predict acceptance or assess mathematical significance. Abstract availability and journal proportions bias the sample, and selective journals have limited coverage. The test mixes publication years from 2016 through 2025. Performance on future publications and overlap with pretraining data remain untested. Several journals can suit the same paper.
+The model predicts observed publication venues. It does not estimate acceptance probability or mathematical quality. Several journals can suit the same paper. Abstract availability and journal proportions bias the sample. Highly selective journals have limited training coverage. Performance on future publications and overlap with upstream pretraining data remain untested.
 
 ## Files and license
 
-The adapter uses Apache 2.0. Upstream credits are in `NOTICE`. Base and embedding models are downloaded separately under their own licenses.
+The adapter uses Apache 2.0. Upstream credits are in `NOTICE`. Download the backbone separately under its license.
 
-`manifest.json` lists checksums for the inference files. `SHA256SUMS` covers the whole package. Private training paths and arguments were removed from `head.pt`, with adapter weights and head tensors verified unchanged. Optimizer state and collected paper text are excluded.
+`manifest.json` records the input format and inference-file checksums. `SHA256SUMS` covers the package. Private training arguments were removed from `head.pt`, with head tensors and adapter weights verified unchanged. Optimizer state and collected paper text are excluded.

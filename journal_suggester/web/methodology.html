@@ -20,92 +20,52 @@
   </header>
 
   <h2 id="methodology-heading" tabindex="-1">About</h2>
-  <p class="page-intro">An experiment in recommending math journals from a paper’s title and abstract using Qwen3-Embedding-8B and Kev-4B.</p>
-
+  <p class="page-intro">An experiment in recommending math journals from a paper’s title and abstract using a fine-tuned Kev-4B model.</p>
   <section aria-labelledby="how-heading">
     <h2 id="how-heading">How recommendations work</h2>
-    <p>Qwen3-Embedding-8B embeds the title and abstract, then finds similar published papers by cosine similarity. Each journal is scored by its closest paper. The 20 closest journals and their supporting excerpts are then passed to a fine-tuned Kev-4B for reranking.</p>
-    <p>The five recommendations are numbered 1–5 in descending order of fine-tuned Kev’s scores among the 20 journals retrieved by Qwen. Supporting papers within each journal are ordered by embedding similarity.</p>
+    <p>Kev scores all 95 journal names from the manuscript’s title and abstract. The five recommendations are numbered 1–5 in descending score order. Journal names appear in a fixed alphabetical order inside the model’s request.</p>
+    <p>After journals are ranked, Qwen3-Embedding-8B finds similar published papers within those journals. These examples do not affect Kev’s ranking and are not inputs to Kev.</p>
   </section>
-
   <section aria-labelledby="data-heading">
     <h2 id="data-heading">Data collection</h2>
-    <p>The audited corpus covers 95 journals and series published from 2016 through 2025. It contains 10,061 reference papers, plus separate sets of 1,000 validation and 1,000 test papers. Training papers come from the reference pool.</p>
-    <p>Publication metadata comes from Crossref and publisher records; available abstracts come from Crossref, OpenAlex, publishers, and arXiv, with identity checks before matching.</p>
-    <p>Sampling approximately follows indexed publication counts; validation and test each include at least one paper per journal.</p>
+    <p>The dataset covers 95 journals and series published from 2016 through 2025. Training uses 8,000 papers, with separate sets of 1,000 validation and 1,000 test papers. Sampling approximately follows publication counts. Validation and test each include at least one paper per journal.</p>
+    <p>Publication records and available abstracts come from Crossref, OpenAlex, publishers, and arXiv, with identity checks before matching.</p>
+    <p>IHÉS, Annals, Acta Mathematica, Inventiones, and JAMS account for 105 training papers and 18 validation papers. Limited training coverage may contribute to weaker performance.</p>
   </section>
-
   <section aria-labelledby="test-results-heading">
-    <h2 id="test-results-heading">Held-out test results</h2>
-    <p>All three methods were evaluated on the same 1,000 test papers with identical Top 20 candidate lists. The epoch-2 checkpoint was selected using validation and fixed before this test.</p>
-    <p>Top 1, Top 3, and Top 5 accuracy measure whether a paper’s actual publication journal appears among the first one, three, or five suggestions. All 1,000 papers count, including the 150 whose actual journal was not retrieved.</p>
-    <table>
-      <thead><tr><th scope="col">Method</th><th scope="col">Top 1</th><th scope="col">Top 3</th><th scope="col">Top 5</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Qwen retrieval</th><td>21.1%</td><td>40.6%</td><td>51.4%</td></tr>
-        <tr><th scope="row">Qwen + released Kev</th><td>22.3%</td><td>39.6%</td><td>49.7%</td></tr>
-        <tr><th scope="row"><strong>Qwen + fine-tuned Kev</strong></th><td><strong>51.3%</strong></td><td><strong>72.4%</strong></td><td><strong>78.2%</strong></td></tr>
-      </tbody>
-    </table>
-    <p>Fine-tuned Kev placed the actual journal among its first three suggestions for 724 papers, versus 406 for retrieval: a 31.8 percentage-point gain.</p>
+    <h2 id="test-results-heading">Test results</h2>
+    <p>The fixed epoch-2.5 checkpoint was evaluated on all 1,000 test papers. Top 1, Top 3, and Top 5 measure whether the actual publication journal appears among the first one, three, or five recommendations.</p>
+    <table><thead><tr><th scope="col">Model</th><th scope="col">Top 1</th><th scope="col">Top 3</th><th scope="col">Top 5</th></tr></thead>
+    <tbody><tr><th scope="row"><strong>Fine-tuned Kev</strong></th><td><strong>57.2%</strong></td><td><strong>78.9%</strong></td><td><strong>85.3%</strong></td></tr></tbody></table>
+    <p>Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development. It is not a fresh external evaluation.</p>
+    <p class="record-links"><a href="/methodology/records/test.json">Test results (JSON)</a></p>
   </section>
-
-  <section aria-labelledby="results-heading">
-    <h2 id="results-heading">Validation results</h2>
-    <p>All methods use the same separate set of 1,000 validation papers and natural candidate lists; missing the actual journal counts as a failure.</p>
-    <table>
-      <thead><tr><th scope="col">Method</th><th scope="col">Top 1</th><th scope="col">Top 3</th><th scope="col">Top 5</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Qwen retrieval</th><td>21.8%</td><td>41.7%</td><td>52.2%</td></tr>
-        <tr><th scope="row">Qwen + released Kev</th><td>21.6%</td><td>39.2%</td><td>49.2%</td></tr>
-        <tr><th scope="row">Qwen + fine-tuned Kev</th><td>52.1%</td><td>70.7%</td><td>77.1%</td></tr>
-      </tbody>
-    </table>
-    <p>The fine-tuned result uses the selected epoch-2 checkpoint from 8,000 training papers: a 29.0 percentage-point gain in Top 3 over retrieval. These validation papers guided our choice of learning rate and checkpoint.</p>
-    <p>The actual journal reaches the Top 20 candidate list for 84.5% of validation papers; the untuned Qwen retriever misses the remaining 15.5%. Fine-tuning Qwen may improve this coverage.</p>
-    <p>IHÉS, Annals, Acta Mathematica, Inventiones, and JAMS account for just 105 of the 8,000 training papers and 18 of the 1,000 validation papers. For these 18 papers, the actual journal reached the Top 20 candidates in only 6 cases, and fine-tuned Kev placed it in the Top 3 in 1 case. Limited training coverage may contribute to weaker performance.</p>
-  </section>
-
   <section aria-label="Experiment details">
-    <details>
-      <summary>Learning-rate comparison</summary>
-      <p>Each trial continued training released Kev’s existing LoRA adapter and decision head (warm-start fine-tuning). All trials used the same 1,000 training papers and seed, with two training epochs. We measured Top 3 accuracy on all 1,000 validation papers after each epoch.</p>
-      <table>
-        <thead><tr><th scope="col">Peak rate</th><th scope="col">Epoch 1</th><th scope="col">Epoch 2</th></tr></thead>
-        <tbody>
-          <tr><th scope="row"><code>1e-5</code></th><td>47.4%</td><td>49.5%</td></tr>
-          <tr><th scope="row"><code>2e-5</code></th><td>48.2%</td><td>50.3%</td></tr>
-          <tr><th scope="row"><code>4e-5</code></th><td>49.9%</td><td>50.8%</td></tr>
-        </tbody>
-      </table>
-      <p>We selected <code>4e-5</code> by validation Top 3 accuracy. It succeeded on five more papers than <code>2e-5</code> out of 1,000, a small difference that does not establish an optimal rate.</p>
-      <p>Validation loss (cross-entropy) penalizes low probability assigned to the actual journal; lower is better. From epoch 1 to epoch 2, loss decreased from 2.264 to 2.198 for <code>1e-5</code>, 2.210 to 2.182 for <code>2e-5</code>, and 2.167 to 2.162 for <code>4e-5</code>. Loss uses the fixed 845 papers whose actual journal was retrieved; accuracy includes all 1,000. Completed trials took 16–20 minutes each, including validation.</p>
-      <p class="record-links"><a href="/methodology/records/tuning-b300.json">Full tuning results and comparisons (JSON)</a></p>
+    <details><summary>Learning-rate comparison</summary>
+      <p>Each trial continued training released Kev’s LoRA adapter and decision head on the same 1,000 papers for two epochs. All trials used seed 42 and the same 1,000 validation papers.</p>
+      <table><thead><tr><th scope="col">Peak rate</th><th scope="col">Epoch 1 Top 3</th><th scope="col">Epoch 2 Top 3</th></tr></thead><tbody>
+      <tr><th scope="row"><code>1e-5</code></th><td>48.0%</td><td>49.7%</td></tr>
+      <tr><th scope="row"><code>2e-5</code></th><td>49.8%</td><td>51.0%</td></tr>
+      <tr><th scope="row"><code>4e-5</code></th><td><strong>51.9%</strong></td><td>51.4%</td></tr>
+      </tbody></table><p>We selected <code>4e-5</code> by validation Top 3. This comparison uses one seed and does not establish an optimal rate.</p>
+      <p class="record-links"><a href="/methodology/records/tuning.json">Tuning results (JSON)</a></p>
     </details>
-
-    <details>
-      <summary>8,000-paper training results</summary>
-      <p>The expanded run started again from released Kev with 8,000 training papers, proportional journal quotas and shortages redistributed. There was no minimum-ten floor; journal counts ranged from 6 to 399.</p>
-      <p>Peak learning rate <code>4e-5</code>; AdamW with a five-epoch OneCycle schedule; microbatch one, accumulation eight. Validation and saving occurred every half epoch. After at least two epochs, three checks without a meaningful loss improvement (0.01) or a new best Top 3 score triggered early stopping. Small loss improvements accumulated.</p>
-      <table>
-        <thead><tr><th scope="col">Epoch</th><th scope="col">Top 3</th><th scope="col">Loss</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">0.5</th><td>52.6%</td><td>2.052</td></tr>
-          <tr><th scope="row">1</th><td>66.1%</td><td>1.466</td></tr>
-          <tr><th scope="row">1.5</th><td>68.6%</td><td>1.320</td></tr>
-          <tr><th scope="row">2 (selected)</th><td>70.7%</td><td>1.255</td></tr>
-          <tr><th scope="row">2.5</th><td>70.1%</td><td>1.486</td></tr>
-          <tr><th scope="row">3</th><td>70.0%</td><td>1.324</td></tr>
-          <tr><th scope="row">3.5</th><td>70.6%</td><td>2.947</td></tr>
-        </tbody>
-      </table>
-      <p>The run stopped at epoch 3.5. Epoch 2 had the highest validation Top 3 accuracy and was selected under the fixed rule, with earlier checkpoints preferred on ties. This is the model now used by the website.</p>
-      <p>All 8,000 requests passed independent checks, with no rejected or truncated examples. For 1,191 training papers, the target journal was inserted because retrieval missed it; validation and test never receive this insertion. A three-update pilot checked the gradients and confirmed that saving and reloading the checkpoint preserved its predictions.</p>
-      <p>The completed run passed the data, prediction and stopping-rule audit. Reloading the selected checkpoint reproduced its saved validation predictions exactly.</p>
-      <p class="record-links"><a href="/methodology/records/training-8000-config.json">Training configuration</a> · <a href="/methodology/records/training-8000-preflight.json">Input audit</a></p>
+    <details><summary>8,000-paper training results</summary>
+      <p>The full run started again from released Kev at a peak learning rate of <code>4e-5</code>, using AdamW and a five-epoch OneCycle schedule. Each optimizer update accumulated eight single-paper batches. Validation ran every half epoch.</p>
+      <p>After at least two epochs, three checks without a new best validation Top 3 score triggered early stopping. Earlier checkpoints won ties. Training stopped at epoch 4 and selected epoch 2.5.</p>
+      <table><thead><tr><th scope="col">Epoch</th><th scope="col">Validation Top 3</th><th scope="col">Loss</th></tr></thead><tbody>
+<tr><th scope="row">0.5</th><td>56.3%</td><td>2.560</td></tr>
+<tr><th scope="row">1</th><td>70.0%</td><td>1.942</td></tr>
+<tr><th scope="row">1.5</th><td>72.7%</td><td>1.826</td></tr>
+<tr><th scope="row">2</th><td>75.4%</td><td>1.686</td></tr>
+<tr><th scope="row">2.5 (selected)</th><td>76.2%</td><td>2.045</td></tr>
+<tr><th scope="row">3</th><td>76.2%</td><td>1.837</td></tr>
+<tr><th scope="row">3.5</th><td>74.5%</td><td>2.700</td></tr>
+<tr><th scope="row">4</th><td>74.7%</td><td>3.398</td></tr>
+      </tbody></table>
+      <p>Loss is cross-entropy over all 1,000 validation papers. Lower is better. Selection used Top 3 accuracy, so the chosen checkpoint does not have the lowest loss.</p>
+      <p>A three-update pilot checked gradients and saved-state reloads. Training rejected or truncated no examples. Reloading the selected model reproduced its saved predictions exactly in the eight-paper check.</p>
+      <p class="record-links"><a href="/methodology/records/training.json">Training results (JSON)</a> · <a href="/methodology/records/config.json">Configuration</a></p>
     </details>
   </section>
-
-</main>
-</body>
-</html>
+</main></body></html>

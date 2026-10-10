@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "journal-suggester"
-version = "1.0.0"
-description = "Reproducible mathematics journal retrieval and Kev ranking experiment"
+version = "2.0.0"
+description = "Math journal recommendations with fine-tuned Kev"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE", "licenses/kev-LICENSE", "licenses/triton-LICENSE"]
@@ -25,7 +25,8 @@ include = ["journal_suggester*"]
 [tool.setuptools.package-data]
 journal_suggester = [
     "web/index.html", "web/methodology.html", "web/app.css", "web/app.js",
-    "resources/configs/models.json", "resources/configs/training-8000.json",
+    "resources/configs/models.json", "resources/configs/kev-only.json",
     "resources/configs/website-kev.json", "resources/data/journals.csv",
-    "resources/results/data-audit.json", "resources/results/tuning.json",
+    "resources/results/test.json", "resources/results/tuning.json",
+    "resources/results/training.json", "resources/results/config.json", "resources/configs/release.json",
 ]

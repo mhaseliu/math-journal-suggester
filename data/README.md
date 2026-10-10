@@ -1,5 +1,7 @@
 # Data included here
 
-`journals.csv` is the 95-journal catalog; `publication-counts.json` gives audited indexed counts, not a complete census. `splits/*.jsonl` contains original split membership, public identifiers and record hashes, without paper titles or abstracts. These files are manifests, not inputs to neural inference. `record_sha256` hashes the original complete cleaned record using `journal_suggester.io.digest`.
+`journals.csv` lists the 95 journals. `publication-counts.json` contains audited indexed publication counts. Split files contain paper identifiers, journal assignments, and checksums of the complete original records. They contain no titles or abstracts.
 
-Training is a subset of references. Validation and test are disjoint from references and from each other. See `docs/reproduce.md` for recovering or preparing complete records under source terms.
+`train.jsonl` identifies the 8,000 full-training papers. `screen.jsonl` identifies the 1,000 learning-rate-screen papers, of which 994 also appear in full training. Both selections come from the reference pool. Validation and test are disjoint from that pool and from each other.
+
+`record_sha256` uses `journal_suggester.io.digest`. See the [reproduction guide](../docs/reproduce.md) for recovering complete records.

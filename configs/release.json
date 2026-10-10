@@ -1,0 +1,16 @@
+{
+  "architecture": "kev-only",
+  "candidate_count": 95,
+  "candidate_order": "alphabetical",
+  "manifest_sha256": "315fbd5e56dbe29fdaee915e8a2300d115afe4e865a4f93900ba435f2b987335",
+  "metrics": {
+    "top1": 0.572,
+    "top3": 0.789,
+    "top5": 0.853
+  },
+  "model_repository": "mhaseliu/kev-math-journal-suggester",
+  "model_revision": "57c37b4011821ee66accd6eff96bbf7ef005ebbf",
+  "optimizer_steps": 2500,
+  "selected_epoch": 2.5,
+  "test_papers": 1000
+}

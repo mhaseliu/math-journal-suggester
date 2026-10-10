@@ -1,91 +1,78 @@
 # Reproduce the experiment
 
-Start with the [installation instructions](../README.md#quickstart). Run commands from the repository root with your Python environment active. Checking saved results does not need a GPU but running Qwen or Kev does.
+Start with the [installation instructions](../README.md#quickstart). Run commands from the repository root with the Python environment active. Checking saved results does not need a GPU but running Kev does.
 
-## Check the reported results
-
-This recomputes test accuracy from the three saved prediction files:
+## Check saved results
 
 ```bash
 python -m journal_suggester.experiment verify-results
 ```
 
-## Prepare the data
+This checks all 1,000 prediction records, their journal ordering and probabilities, and the reported accuracy.
 
-Each paper needs these fields: `paper_id`, `title`, `abstract`, `journal_id`, `year`, `doi`, `arxiv_id`, and `url`. Store one record per line in UTF-8 JSONL. Use journal IDs from `data/journals.csv` and the journal publication year.
+## Run recommendations
 
-To collect papers, first list eligible publication records:
-
-```bash
-python -m journal_suggester.counts --output data/processed/counts
-```
-
-Resolve incomplete journal series using the publisher and series modules, then collect abstracts:
-
-```bash
-python -m journal_suggester.corpus --config configs/evaluation.json --output data/processed/corpus
-```
-
-Check coverage and keep the source records outside Git. For a small trial collection, use `journal-suggester collect --config configs/pilot.json --output data/processed/pilot`.
-
-Apply `quality.clean_paper` to each record and set rejected records aside. Save accepted records to `data/processed/papers.jsonl`, then create splits that keep duplicate versions together:
-
-```python
-from journal_suggester.io import read_json
-from journal_suggester.splits import split
-split("data/processed/papers.jsonl", "artifacts/source/splits",
-      train_size=8000, val_size=1000, test_size=1000, seed=42,
-      counts=read_json("data/publication-counts.json"), evaluation_floor=1)
-```
-
-Keep the generated manifest. Splitting fails if journal coverage is insufficient.
-
-To reproduce the original benchmark, match the paper IDs and `record_sha256` checksums in `data/splits/`. The original cleaned text is not distributed, and collecting it again may return different content.
-
-## Set up the GPU machine
-
-Connect to your GPU machine before continuing. The tested setups are:
+Use a GPU machine with the pinned environment. The tested setups are:
 
 | Hardware | PyTorch | CUDA |
 |---|---|---|
 | ASUS Ascent GX10 (NVIDIA GB10, ARM64) | 2.8.0 | 12.9 |
 | B300 | 2.12.1 | 13.2 |
 
-On **ASUS Ascent GX10**, use Python 3.12 and run `uv sync --project environments/gb10-speed --frozen`. Activate that environment and set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. Use `JOURNAL_TRITON_CUDA13=1` only with the pinned CUDA 13 ptxas/Triton 3.4 combination.
+On ASUS Ascent GX10, run `uv sync --project environments/gb10-speed --frozen` and activate that environment. Set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. The tested fast-kernel setup uses `JOURNAL_TRITON_CUDA13=1` with Triton 3.4 and `TRITON_PTXAS_PATH` pointing to the CUDA 13.0 `ptxas` binary. Use a larger memory limit if you also load Qwen for similar papers.
 
-On **another CUDA machine**, follow [GPU setup](../environments/README.md) and set `CUDA_VISIBLE_DEVICES=0`, `JOURNAL_EXECUTION_BACKEND=cuda`, and `JOURNAL_ALLOW_MODEL_EXECUTION=1`. The tested B300 setup overrides Kev's `torch<2.9` requirement after numerical checks confirmed agreement. Other hardware is unverified.
+For a CUDA host using the B300 stack, follow [environment setup](../environments/README.md). Set `CUDA_VISIBLE_DEVICES=0`, `JOURNAL_EXECUTION_BACKEND=cuda`, and `JOURNAL_ALLOW_MODEL_EXECUTION=1`. The package versions are checked before training. Other hardware is unverified.
 
-## Train the model
-
-With the data and GPU environment ready, run:
+Download the adapter package using the revision in `configs/release.json`:
 
 ```bash
-python -m journal_suggester.experiment select --splits artifacts/source/splits --output artifacts/experiment
-python -m journal_suggester.experiment embed --root artifacts/experiment
+python - <<'PY'
+from huggingface_hub import snapshot_download
+from journal_suggester.io import read_json
+release = read_json('configs/release.json')
+snapshot_download(release['model_repository'], revision=release['model_revision'],
+                  local_dir='checkpoints/kev-math-journal-suggester')
+PY
+journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
+```
+
+The pinned backbone is downloaded on first load. Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding from your laptop.
+
+For optional similar papers, supply a directory containing `reference.jsonl` and its Qwen3-Embedding-8B vectors using `--split` and `--vectors`. Generate these vectors with `journal_suggester.gpu.embed_split` and `configs/models.json`. These examples do not affect journal ranking.
+
+## Recover the original data
+
+Each cleaned paper is a JSONL record containing `paper_id`, `group_id`, `title`, `abstract`, `journal_id`, `year`, and available identifiers such as `doi` and `arxiv_id`. Preserve duplicate-group metadata from preprocessing.
+
+The original collected text is not distributed. Recover records using the identifiers in `data/splits/` and match their `record_sha256` checksums. The source files are `reference.jsonl`, `validation.jsonl`, and `test.jsonl`. The selection command checks their full hashes and reconstructs the exact training and learning-rate-screen selections. Changed or missing records fail verification.
+
+Collection and cleaning utilities remain in `counts`, `corpus`, `quality`, `records`, and `splits`. Recovering metadata from upstream services may return different content, so exact data reconstruction is not guaranteed.
+
+## Prepare and train
+
+Select the records on a CPU machine:
+
+```bash
+python -m journal_suggester.experiment select --splits data/recovered --output artifacts/experiment
+```
+
+On the GPU machine, prepare requests and run the separate training stages:
+
+```bash
 python -m journal_suggester.experiment prepare --root artifacts/experiment
-python -m journal_suggester.experiment train --root artifacts/experiment --pilot
-python -m journal_suggester.experiment train --root artifacts/experiment
+python -m journal_suggester.experiment train --root artifacts/experiment --mode pilot
+python -m journal_suggester.experiment train --root artifacts/experiment --mode screen
+python -m journal_suggester.experiment train --root artifacts/experiment --mode full
 ```
 
-This uses 8,000 training and 1,000 validation papers for up to five epochs. Preparation checks candidates, supporting evidence, and tokenization. The pilot runs three updates and checks that saved weights give the same predictions after reloading. It must pass before training starts.
+The pilot checks three updates and checkpoint reloads. The screen compares three rates on 1,000 papers for two epochs. The full run starts from released Kev on 8,000 papers, using the selected rate and up to five epochs. Validation runs every half epoch. The stopping rule and checkpoint selection use overall validation Top 3.
 
-Validation loss covers papers whose actual journal was retrieved (845 in the recorded run). The test set stays unused. Existing outputs cannot be overwritten, so investigate failures before starting in a new directory.
+Existing outputs cannot be overwritten. Reports, predictions, and saved training state stay inside the experiment directory. The code saves optimizer, scheduler, and RNG state but does not implement exact resume.
 
-## Evaluate the selected checkpoint
-
-Select a checkpoint using the validation results in `artifacts/experiment/checkpoints/full/progress.json`. Once it is fixed, evaluate it and the released baseline on test:
+## Evaluate once the checkpoint is fixed
 
 ```bash
-python -m journal_suggester.experiment embed --root artifacts/experiment --partitions test
-python -m journal_suggester.experiment evaluate --root artifacts/experiment --partition test --checkpoint PATH_TO_SELECTED_CHECKPOINT
+python -m journal_suggester.experiment evaluate --root artifacts/experiment --test-papers data/recovered/test.jsonl
 ```
 
-## Run the website
-
-On your GPU host, supply your reference records, vectors, and the verified fine-tuned adapter:
-
-```bash
-journal-suggester serve --split artifacts/experiment/splits --vectors artifacts/experiment/vectors --kev-run checkpoints/kev-math-epoch2
-```
-
-Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding to access it from your laptop. For public hosting, configure a proxy and isolated services around `public_app` and `web_rpc`. Private host addresses and deployment scripts are excluded.
+This loads the checkpoint already selected by validation, checks its predictions after reload, and scores the original 1,000 test papers without training or selecting another checkpoint.

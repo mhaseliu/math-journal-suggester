@@ -85,8 +85,7 @@ class PublicApplication:
                 return send(200, (STATIC / filename).read_bytes(), content_type)
             prefix = "/methodology/records/"
             # Exact filenames only, never user-controlled filesystem paths.
-            if path in {prefix + name for name in ("tuning-b300.json", "training-8000-config.json",
-                                                  "training-8000-preflight.json")}:
+            if path in {prefix + name for name in ("test.json", "training.json", "tuning.json", "config.json")}:
                 record = self.records_dir / path.removeprefix(prefix)
                 if record.is_file():
                     return send(200, record.read_bytes())
@@ -161,7 +160,7 @@ def main():
     parser.add_argument("--http-socket", default="/run/journal-web/http.sock")
     parser.add_argument("--model-socket", default="/run/journal-model/api.sock")
     parser.add_argument("--metadata-socket", default="/run/journal-metadata/api.sock")
-    parser.add_argument("--records", default="/opt/journal-suggester/app/public-records")
+    parser.add_argument("--records", default=str(Path(__file__).with_name("resources") / "results"))
     parser.add_argument("--proxy", choices=["cloudflare", "tailscale"], default="cloudflare")
     args = parser.parse_args()
     from waitress import serve

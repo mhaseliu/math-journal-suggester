@@ -1,0 +1,45 @@
+{
+  "accum": 8,
+  "batch": 1,
+  "candidate_count": 95,
+  "candidate_order": "alphabetical",
+  "checkpoint_selection": "highest overall validation top3, earlier epoch on ties",
+  "choice_format": "journal_name_only",
+  "experiment_id": "kev-only-20261009",
+  "full": {
+    "early_stopping": {
+      "metric": "overall validation top3",
+      "minimum_epochs": 2,
+      "patience": 3
+    },
+    "epochs": 5,
+    "training_papers": 8000,
+    "validation_every_epochs": 0.5
+  },
+  "max_request": 6144,
+  "max_state": 5504,
+  "models": "configs/models.json",
+  "pilot": {
+    "epochs": 1,
+    "learning_rate": 2e-05,
+    "max_runtime_seconds": 900,
+    "training_papers": 24,
+    "validation_papers": 8
+  },
+  "precision": "fp32_weights_bf16_autocast_strict_fast",
+  "query_tokens": 768,
+  "screen": {
+    "epochs": 2,
+    "learning_rates": [
+      1e-05,
+      2e-05,
+      4e-05
+    ],
+    "tie_break": "lower learning rate, then earlier epoch",
+    "training_papers": 1000,
+    "validation_every_epochs": 1
+  },
+  "seed": 42,
+  "test_evaluation": false,
+  "validation_papers": 1000
+}

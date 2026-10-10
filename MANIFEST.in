@@ -1,16 +1,14 @@
 include NOTICE SECURITY.md
 # Keep distribution inputs explicit: Git ignores do not filter source archives.
 include configs/catalog_reviewed.json configs/evaluation.json configs/models.json
-include configs/pilot.json configs/training-8000.json configs/website-kev.json
+include configs/kev-only.json configs/release.json configs/website-kev.json
 include data/README.md data/journals.csv data/publication-counts.json data/series_overrides.json
 include data/splits/manifest.json data/splits/reference.jsonl data/splits/train.jsonl
-include data/splits/validation.jsonl data/splits/test.jsonl
-include results/data-audit.json results/journal-coverage.json results/provenance.json
-include results/release-checks.json results/test.json results/training.json results/tuning.json
-include results/predictions/retrieval.jsonl results/predictions/released_kev.jsonl
-include results/predictions/fine_tuned_kev.jsonl
+include data/splits/validation.jsonl data/splits/test.jsonl data/splits/screen.jsonl
+include results/test.json results/training.json results/tuning.json results/config.json results/verification.json
+include results/predictions/kev_only.jsonl
 include docs/distribution.md docs/experiment.md docs/reproduce.md
-include model/PUBLISH.md model/README.md model/export-verification.json
+include model/README.md model/export-verification.json
 include licenses/kev-LICENSE licenses/triton-LICENSE
 include environments/README.md
 include environments/gb10-speed/pyproject.toml environments/gb10-speed/uv.lock
