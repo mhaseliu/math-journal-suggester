@@ -40,10 +40,6 @@ journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
 
 The pinned backbone is downloaded on first load. Published test scores use B300. A separate [GB10 validation check](../results/deployment-validation.json) scored 76.1% Top 3 versus 76.2% on B300. The cleaned export and original checkpoint produced identical GB10 predictions. Inference pins the validated GB10 kernel settings so rebuilding the GPU cache does not change predictions. Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding from your laptop.
 
-### Optional similar papers
-
-Similar-paper lookup uses a separate Qwen3-Embedding-8B model after Kev ranks the journals. These examples do not affect ranking. Supply a directory containing `reference.jsonl` and its vectors using `--split` and `--vectors`. Generate the vectors with `journal_suggester.gpu.embed_split` and `configs/models.json`. Allow additional GPU memory when loading both models.
-
 ## Recover the original data
 
 Each cleaned paper is a JSONL record containing `paper_id`, `group_id`, `title`, `abstract`, `journal_id`, `year`, and available identifiers such as `doi` and `arxiv_id`. Preserve duplicate-group metadata from preprocessing.

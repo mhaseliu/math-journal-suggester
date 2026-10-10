@@ -14,7 +14,7 @@ from journal_suggester.app import make_server
 from journal_suggester.io import write_jsonl
 from journal_suggester.paper_import import (ArxivImporter, ArxivScopeError, ArxivUnavailableError,
                                           MAX_METADATA_BYTES, normalize_arxiv, parse_arxiv, parse_arxiv_html)
-from journal_suggester.web_service import SearchService, citation, validate_query
+from journal_suggester.web_service import SearchService, validate_query
 
 
 MATH_CATEGORY = b'<category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>'
@@ -262,9 +262,6 @@ class WebTests(unittest.TestCase):
         response=conn.getresponse(); result=(response.status,dict(response.getheaders()),response.read()); conn.close(); return result
 
 
-
-    def test_unsafe_citation_link_not_renderable(self):
-        self.assertEqual(citation({'url':'javascript:alert(1)'})['url'],'')
 
     def test_static_api_and_browser_security(self):
         status,headers,data=self.request('/')

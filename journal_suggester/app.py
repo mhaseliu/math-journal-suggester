@@ -104,8 +104,8 @@ def make_server(service, port=8765, importer=None):
     return ThreadingHTTPServer(("127.0.0.1", port), Handler)
 
 
-def serve(split_dir=None, port=8765, vectors=None, kev_run=None):
-    service = SearchService(split_dir, vectors, kev_run)
+def serve(kev_run, port=8765):
+    service = SearchService(kev_run=kev_run)
     server = make_server(service, port)
     print(f"{service.info()['mode']}: http://127.0.0.1:{server.server_port}", flush=True)
     try:

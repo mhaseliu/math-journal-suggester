@@ -53,14 +53,6 @@ function render(suggestions) {
   suggestions.forEach((journal, index) => {
     const card = node('article', 'journal-card');
     card.append(node('h3', '', `${index + 1}. ${journal.journal_name}`));
-    for (const paper of journal.references) {
-      const entry = node('div', 'reference'); const link = node(paper.url ? 'a' : 'span', 'paper-link', paper.title);
-      if (paper.url) {link.href = paper.url; link.target = '_blank'; link.rel = 'noopener noreferrer';}
-      entry.append(link, node('span', 'paper-meta', String(paper.year)));
-      if (paper.abstract) {const details = node('details'); details.append(node('summary', '', 'Read abstract'), node('p', '', paper.abstract)); entry.append(details);}
-      card.append(entry);
-    }
-    if (journal.references.length === 1) card.append(node('p','hint','One similar paper is available in this collection.'));
     $('results').append(card);
   });
 }

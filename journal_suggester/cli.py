@@ -10,17 +10,15 @@ def main():
     for command in ('serve','suggest'):
         p=sub.add_parser(command)
         p.add_argument('--kev-run',required=True,help='Directory containing the verified adapter package')
-        p.add_argument('--split',help='Optional directory containing reference.jsonl for similar papers')
-        p.add_argument('--vectors',help='Optional Qwen reference vectors, paired with --split')
         if command=='serve': p.add_argument('--port',type=int,default=8765)
         else: p.add_argument('--paper',type=Path,required=True,help='JSON containing title and abstract')
     args=parser.parse_args()
     if args.command=='serve':
         from .app import serve
-        serve(args.split,args.port,args.vectors,args.kev_run)
+        serve(args.kev_run,port=args.port)
     else:
         from .web_service import SearchService
-        service=SearchService(args.split,args.vectors,args.kev_run)
+        service=SearchService(kev_run=args.kev_run)
         print(json.dumps(service.suggest(json.loads(args.paper.read_text())),indent=2))
 
 

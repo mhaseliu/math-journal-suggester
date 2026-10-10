@@ -36,7 +36,7 @@ journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
 
 Open [http://127.0.0.1:8765](http://127.0.0.1:8765) on the GPU machine, or use SSH port forwarding from your laptop. Pasting text works offline, but importing arXiv metadata requires internet access.
 
-Kev ranks the journals directly. Optional similar-paper examples are retrieved afterward and do not affect ranking. See the [model dependencies and setup](docs/reproduce.md#run-recommendations).
+Kev ranks the journals directly and returns the five highest-ranked journals. See the [model dependencies and setup](docs/reproduce.md#run-recommendations).
 
 The repository includes code, dataset split identifiers and record checksums, aggregate results, and predictions for each test paper. **Collected titles and abstracts, reference vectors, model weights, credentials, and private deployment settings are excluded.** The adapter and decision head are distributed through Hugging Face.
 

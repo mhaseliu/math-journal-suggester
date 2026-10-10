@@ -46,19 +46,14 @@ class RecommendationTests(unittest.TestCase):
         self.assertTrue(all(not j['references'] for j in result['suggestions']))
         self.assertEqual(service.info()['ranking'], 'kev-only')
 
-    def test_related_papers_cannot_change_or_remove_recommendations(self):
-        paper = {'paper_id':'p', 'title':'Exact title', 'abstract':'Exact abstract', 'year':2021,
-                 'journal_id':self.ids[-1], 'doi':'10.1234/p'}
-        examples = Mock()
-        examples.find.return_value = {self.ids[-1]: [paper]}
-        service = SearchService(ranker=self.ranker, examples=examples)
-        result = service.suggest(QUERY)
+    def test_startup_and_suggestions_do_not_load_an_embedding_model(self):
+        with patch.dict('sys.modules', {'journal_suggester.related_papers': None, 'journal_suggester.gpu': None}), \
+                patch('journal_suggester.web_ranker.KevOnlyRanker', return_value=self.ranker):
+            service = SearchService(kev_run='verified-checkpoint')
+            result = service.suggest(QUERY)
+        self.assertFalse(service.info()['similar_papers'])
         self.assertEqual([s['journal_id'] for s in result['suggestions']], self.ids[-1:-6:-1])
-        self.assertEqual(result['suggestions'][0]['references'][0]['abstract'], paper['abstract'])
-        self.assertEqual(examples.find.call_args.args[1], self.ids[-1:-6:-1])
-        examples.find.side_effect = RuntimeError('Lookup unavailable')
-        self.assertEqual([s['journal_id'] for s in service.suggest(QUERY)['suggestions']], self.ids[-1:-6:-1])
-        self.assertFalse(service.lock.locked())
+        self.assertTrue(all(not s['references'] for s in result['suggestions']))
 
     def test_invalid_probabilities_and_concurrent_work_are_rejected(self):
         service = SearchService(ranker=self.ranker)

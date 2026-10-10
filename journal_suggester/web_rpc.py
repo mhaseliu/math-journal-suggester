@@ -73,13 +73,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("kind", choices=["model", "metadata"])
     parser.add_argument("--kev-checkpoint")
-    parser.add_argument("--split", type=Path)
-    parser.add_argument("--vectors", type=Path)
     parser.add_argument("--verification-fixture", type=Path)
     args = parser.parse_args()
     if args.kind == "model":
         from .web_service import SearchService
-        service = SearchService(args.split, args.vectors, kev_run=args.kev_checkpoint)
+        service = SearchService(kev_run=args.kev_checkpoint)
         if args.kev_checkpoint:
             if not args.verification_fixture:
                 raise ValueError("Kev startup requires the verified parity fixtures")
