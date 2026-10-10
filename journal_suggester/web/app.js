@@ -60,7 +60,7 @@ function render(suggestions) {
       if (paper.abstract) {const details = node('details'); details.append(node('summary', '', 'Read abstract'), node('p', '', paper.abstract)); entry.append(details);}
       card.append(entry);
     }
-    if (journal.references.length < 2) card.append(node('p','hint','Only one eligible supporting paper is available in this collection.'));
+    if (journal.references.length === 1) card.append(node('p','hint','One similar paper is available in this collection.'));
     $('results').append(card);
   });
 }
@@ -69,7 +69,7 @@ $('manuscript-form').addEventListener('submit', async event => {
   document.querySelector('.results-section').hidden = false;
   $('results').replaceChildren();
   document.querySelector('.results-section').setAttribute('aria-busy','true');
-  message('search-status', 'Finding similar papers…');
+  message('search-status', 'Finding journals…');
   try {
     const query = {...source, title: $('paper-title').value.trim(), abstract: $('abstract').value.trim()};
     const result = await api('/api/suggest', query); render(result.suggestions);
