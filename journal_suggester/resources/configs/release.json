@@ -9,7 +9,7 @@
     "top5": 0.853
   },
   "model_repository": "mhaseliu/kev-math-journal-suggester",
-  "model_revision": "57c37b4011821ee66accd6eff96bbf7ef005ebbf",
+  "model_revision": "8e789e52788b94401036e1f36362fef17013c17d",
   "optimizer_steps": 2500,
   "selected_epoch": 2.5,
   "test_papers": 1000
