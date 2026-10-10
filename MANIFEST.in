@@ -6,7 +6,7 @@ include data/README.md data/journals.csv data/publication-counts.json data/serie
 include data/splits/manifest.json data/splits/reference.jsonl data/splits/train.jsonl
 include data/splits/validation.jsonl data/splits/test.jsonl data/splits/screen.jsonl
 include results/test.json results/training.json results/tuning.json results/config.json results/verification.json
-include results/predictions/kev_only.jsonl
+include results/predictions/kev_only.jsonl results/deployment-validation.json
 include docs/distribution.md docs/experiment.md docs/reproduce.md
 include model/README.md model/export-verification.json
 include licenses/kev-LICENSE licenses/triton-LICENSE

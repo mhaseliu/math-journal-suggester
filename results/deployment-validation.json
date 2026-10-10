@@ -1,0 +1,23 @@
+{
+  "checks_pass": true,
+  "manifest_sha256": "315fbd5e56dbe29fdaee915e8a2300d115afe4e865a4f93900ba435f2b987335",
+  "max_probability_delta": 0.05713626742362976,
+  "metrics": {
+    "B300": {
+      "top1": 0.545,
+      "top3": 0.762,
+      "top5": 0.826
+    },
+    "GB10": {
+      "top1": 0.544,
+      "top3": 0.761,
+      "top5": 0.825
+    }
+  },
+  "optimizer_updates": 0,
+  "original_export_max_probability_delta": 0.0,
+  "test_scored": false,
+  "top1_disagreements": 10,
+  "top3_set_disagreements": 23,
+  "validation_papers": 1000
+}
