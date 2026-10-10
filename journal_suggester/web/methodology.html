@@ -24,6 +24,7 @@
   <section aria-labelledby="how-heading">
     <h2 id="how-heading">How recommendations work</h2>
     <p>Kev scores all 95 journal names from the manuscript’s title and abstract. The five recommendations are numbered 1–5 in descending score order. Journal names appear in a fixed alphabetical order inside the model’s request.</p>
+    <p>Kev-4B is hosted on an ASUS Ascent GX10, based on NVIDIA DGX Spark.</p>
   </section>
   <section aria-labelledby="data-heading">
     <h2 id="data-heading">Data collection</h2>
@@ -38,7 +39,7 @@
     <tbody><tr><th scope="row">Released Kev</th><td>15.7%</td><td>29.8%</td><td>37.3%</td></tr>
     <tr><th scope="row"><strong>Fine-tuned Kev</strong></th><td><strong>57.2%</strong></td><td><strong>78.9%</strong></td><td><strong>85.3%</strong></td></tr></tbody></table>
     <p>Fine-tuning improved Top 3 accuracy by <strong>49.1 percentage points</strong>.</p>
-    <p>Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development. It is not a fresh external evaluation.</p>
+    <p>Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development.</p>
     <p class="record-links"><a href="/methodology/records/test.json">Test results (JSON)</a></p>
   </section>
   <section aria-label="Experiment details">
@@ -53,7 +54,7 @@
     </details>
     <details><summary>8,000-paper training results</summary>
       <p>The full run started again from released Kev at a peak learning rate of <code>4e-5</code>, using AdamW and a five-epoch OneCycle schedule. Each optimizer update accumulated eight single-paper batches. Validation ran every half epoch.</p>
-      <p>After at least two epochs, three checks without a new best validation Top 3 score triggered early stopping. Earlier checkpoints won ties. Training stopped at epoch 4 and selected epoch 2.5.</p>
+      <p>After at least two epochs, three checks without a new best validation Top 3 score triggered early stopping. Training stopped at epoch 4 and selected epoch 2.5.</p>
       <table><thead><tr><th scope="col">Epoch</th><th scope="col">Validation Top 3</th><th scope="col">Loss</th></tr></thead><tbody>
 <tr><th scope="row">0.5</th><td>56.3%</td><td>2.560</td></tr>
 <tr><th scope="row">1</th><td>70.0%</td><td>1.942</td></tr>
@@ -64,8 +65,7 @@
 <tr><th scope="row">3.5</th><td>74.5%</td><td>2.700</td></tr>
 <tr><th scope="row">4</th><td>74.7%</td><td>3.398</td></tr>
       </tbody></table>
-      <p>Loss is cross-entropy over all 1,000 validation papers. Lower is better. Selection used Top 3 accuracy, so the chosen checkpoint does not have the lowest loss.</p>
-      <p>A three-update pilot checked gradients and saved-state reloads. Training rejected or truncated no examples. Reloading the selected model reproduced its saved predictions exactly in the eight-paper check.</p>
+      <p>Loss is cross-entropy over all 1,000 validation papers. Selection used Top 3 accuracy, so the chosen checkpoint does not have the lowest loss.</p>
       <p class="record-links"><a href="/methodology/records/training.json">Training results (JSON)</a> · <a href="/methodology/records/config.json">Configuration</a></p>
     </details>
   </section>
