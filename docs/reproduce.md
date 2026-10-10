@@ -8,9 +8,11 @@ Start with the [installation instructions](../README.md#quickstart). Run command
 python -m journal_suggester.experiment verify-results
 ```
 
-This checks all 1,000 prediction records, their journal ordering and probabilities, and the reported accuracy.
+This checks both models' predictions for all 1,000 test papers, their journal ordering and probabilities, and the reported accuracy. It also verifies that both models received identical requests.
 
 ## Run recommendations
+
+Kev uses the Qwen3.5-4B-Base backbone with its trained adapter and decision head. It scores all 95 journal names directly. No separate embedding model or reference corpus is needed for ranking.
 
 Use a GPU machine with the pinned environment. The tested setups are:
 
@@ -19,7 +21,7 @@ Use a GPU machine with the pinned environment. The tested setups are:
 | ASUS Ascent GX10 (NVIDIA GB10, ARM64) | 2.8.0 | 12.9 |
 | B300 | 2.12.1 | 13.2 |
 
-On ASUS Ascent GX10, run `uv sync --project environments/gb10-speed --frozen` and activate that environment. Set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. The tested fast-kernel setup uses `JOURNAL_TRITON_CUDA13=1` with Triton 3.4 and `TRITON_PTXAS_PATH` pointing to the CUDA 13.0 `ptxas` binary. Use a larger memory limit if you also load Qwen for similar papers.
+On ASUS Ascent GX10, run `uv sync --project environments/gb10-speed --frozen` and activate that environment. Set `JOURNAL_EXECUTION_BACKEND=gb10` and `JOURNAL_CUDA_MEMORY_GIB=32`. The tested fast-kernel setup uses `JOURNAL_TRITON_CUDA13=1` with Triton 3.4 and `TRITON_PTXAS_PATH` pointing to the CUDA 13.0 `ptxas` binary.
 
 For a CUDA host using the B300 stack, follow [environment setup](../environments/README.md). Set `CUDA_VISIBLE_DEVICES=0`, `JOURNAL_EXECUTION_BACKEND=cuda`, and `JOURNAL_ALLOW_MODEL_EXECUTION=1`. The package versions are checked before training. Other hardware is unverified.
 
@@ -38,7 +40,9 @@ journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
 
 The pinned backbone is downloaded on first load. Published test scores use B300. A separate [GB10 validation check](../results/deployment-validation.json) scored 76.1% Top 3 versus 76.2% on B300. The cleaned export and original checkpoint produced identical GB10 predictions. Inference pins the validated GB10 kernel settings so rebuilding the GPU cache does not change predictions. Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding from your laptop.
 
-For optional similar papers, supply a directory containing `reference.jsonl` and its Qwen3-Embedding-8B vectors using `--split` and `--vectors`. Generate these vectors with `journal_suggester.gpu.embed_split` and `configs/models.json`. These examples do not affect journal ranking.
+### Optional similar papers
+
+Similar-paper lookup uses a separate Qwen3-Embedding-8B model after Kev ranks the journals. These examples do not affect ranking. Supply a directory containing `reference.jsonl` and its vectors using `--split` and `--vectors`. Generate the vectors with `journal_suggester.gpu.embed_split` and `configs/models.json`. Allow additional GPU memory when loading both models.
 
 ## Recover the original data
 

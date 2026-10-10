@@ -1,6 +1,6 @@
 # Distribution
 
-Project code and the fine-tuned adapter use Apache 2.0. Kev code/weights and the pinned Qwen models declare Apache 2.0. Their attribution and original licenses are retained in `NOTICE` and `licenses/`. Dependencies retain their own licenses.
+Project code and the fine-tuned adapter use Apache 2.0. Kev's code and weights, its Qwen backbone, and the optional Qwen embedding model declare Apache 2.0. Their attribution and original licenses are retained in `NOTICE` and `licenses/`. Dependencies retain their own licenses.
 
 `data/splits/` contains factual paper identifiers, journal assignments and hashes of the original cleaned records. `results/predictions/` contains model outputs without manuscript text. These make split membership and reported metrics inspectable without redistributing collected abstracts.
 

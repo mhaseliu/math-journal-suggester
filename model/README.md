@@ -21,15 +21,18 @@ This package contains the **epoch-2.5 LoRA adapter, decision head, and tokenizer
 
 ## Results
 
-| Test papers | Top 1 | Top 3 | Top 5 |
+| Model · 1,000 test papers | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
-| 1,000 | **57.2%** | **78.9%** | **85.3%** |
+| Released Kev | 15.7% | 29.8% | 37.3% |
+| Fine-tuned Kev | **57.2%** | **78.9%** | **85.3%** |
+
+Both models received identical requests with all 95 journal names. Top 3 measures whether the paper's publication journal appears among the first three recommendations.
 
 The checkpoint was fixed using validation before this evaluation. Test papers were excluded from training and checkpoint selection. The benchmark had been examined during earlier project development. Saved per-paper predictions and verification code are available in the code repository.
 
 ## Training
 
-Training used 8,000 papers from 95 math journals and series published from 2016 through 2025. Validation and test each contained 1,000 papers. The title and abstract are capped at 768 tokens. All 95 journal names remain in every request.
+Training used 8,000 papers published from 2016 through 2025 in 95 math journals and series. Validation and test each contained 1,000 papers. The title and abstract are capped at 768 tokens. All 95 journal names remain in every request.
 
 We continued training released Kev’s LoRA adapter and decision head using AdamW, a peak learning rate of `4e-5`, and a five-epoch OneCycle schedule. Each update accumulated eight single-paper batches. Validation ran every half epoch. Training stopped after three checks without a new best validation Top 3 score, following a minimum of two epochs. It stopped at epoch 4 and selected epoch 2.5, preferring the earlier checkpoint on ties.
 

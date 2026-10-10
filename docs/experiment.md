@@ -37,7 +37,7 @@ Training ran on a B300 with FP32 stored weights, BF16 autocast, and verified fas
 
 Both models scored the same 1,000 test papers with identical requests, all 95 journal names, precision, and B300 scoring code. Released Kev is the pretrained model before our journal fine-tuning. Fine-tuning improved Top 3 accuracy by **49.1 percentage points**.
 
-Top 1, Top 3, and Top 5 measure whether the observed publication journal appears among the first one, three, or five recommendations. All 95 journals are candidates for every paper. Evaluation used the fixed epoch-2.5 checkpoint, with no additional training or test-based selection.
+Top 1, Top 3, and Top 5 measure whether the observed publication journal appears among the first one, three, or five recommendations. All 95 journals are candidates for every paper. The fine-tuned model used the fixed epoch-2.5 checkpoint, with no additional training or test-based selection.
 
 Test papers were excluded from training and validation. The benchmark had been examined during earlier project development, so this is not a fresh external evaluation. Results use one split and do not establish performance on future publications.
 

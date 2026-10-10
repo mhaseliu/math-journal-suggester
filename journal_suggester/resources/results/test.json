@@ -7,6 +7,12 @@
     "head.pt": "5bd8a0b5d2087d9d3e698f0c899debc91433806325c89daa2c54e7407153e71f"
   },
   "checks_pass": true,
+  "comparison": {
+    "hardware": "B300",
+    "same_precision_and_scoring": true,
+    "same_test_requests": true,
+    "top3_improvement_percentage_points": 49.1
+  },
   "metrics": {
     "macro_top3": 0.7015940788595605,
     "top1": 0.572,
@@ -14,6 +20,19 @@
     "top5": 0.853
   },
   "papers": 1000,
+  "released_baseline": {
+    "matched_test_requests_verified": 1000,
+    "metrics": {
+      "macro_top3": 0.3181225140979447,
+      "top1": 0.157,
+      "top3": 0.298,
+      "top5": 0.373
+    },
+    "model": "jaredpalmer/kev-4b",
+    "model_revision": "6cfce5c2fa4b4bd64026336ab649c5ca78857d52",
+    "optimizer_updates": 0,
+    "predictions_sha256": "0f4ea126f83e40f5947e1222f766e68039d00d7411c6dadbd303188a73b036c8"
+  },
   "selected_epoch": 2.5,
   "test_excluded_from_training_and_selection": true,
   "test_hash": "975c99f558d4725798c9607ae482de56389ca3369a4026b7862ef1cd3c475539"

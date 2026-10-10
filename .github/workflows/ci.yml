@@ -20,6 +20,12 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python -m journal_suggester.experiment verify-results
       - run: python -m build
+      - name: Verify results from the source archive
+        run: |
+          mkdir /tmp/journal-source-check
+          tar -xzf dist/*.tar.gz -C /tmp/journal-source-check --strip-components=1
+          cd /tmp/journal-source-check
+          python -m journal_suggester.experiment verify-results
       - name: Check installed wheel outside the checkout
         run: |
           python -m venv /tmp/journal-wheel-check
@@ -29,7 +35,11 @@ jobs:
           from journal_suggester.io import journals, read_json
           from journal_suggester.resources import ROOT
           assert len(journals()) == 95
-          assert read_json("configs/models.json")["embedding_model"] == "Qwen/Qwen3-Embedding-8B"
-          assert read_json(ROOT / "results/test.json")["checks_pass"]
+          assert read_json("configs/release.json")["architecture"] == "kev-only"
+          result = read_json(ROOT / "results/test.json")
+          assert result["checks_pass"]
+          assert result["metrics"]["top3"] == 0.789
+          assert result["released_baseline"]["metrics"]["top3"] == 0.298
+          assert result["comparison"]["same_test_requests"]
           assert read_json("configs/kev-only.json")["candidate_count"] == 95
           PY

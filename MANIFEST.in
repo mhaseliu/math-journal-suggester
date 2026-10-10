@@ -7,6 +7,7 @@ include data/splits/manifest.json data/splits/reference.jsonl data/splits/train.
 include data/splits/validation.jsonl data/splits/test.jsonl data/splits/screen.jsonl
 include results/test.json results/training.json results/tuning.json results/config.json results/verification.json
 include results/predictions/kev_only.jsonl results/deployment-validation.json
+include results/predictions/released_kev.jsonl results/released-baseline.json
 include docs/distribution.md docs/experiment.md docs/reproduce.md
 include model/README.md model/export-verification.json
 include licenses/kev-LICENSE licenses/triton-LICENSE

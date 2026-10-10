@@ -2,6 +2,7 @@ from pathlib import Path
 import hashlib
 import shutil
 import tempfile
+import tomllib
 import unittest
 
 from journal_suggester.experiment import select, verify_results
@@ -16,6 +17,18 @@ from journal_suggester.io import (
 
 
 class ExperimentTests(unittest.TestCase):
+    def test_bundled_resources_match_canonical_files(self):
+        root = Path(__file__).resolve().parents[1]
+        config = tomllib.loads((root / "pyproject.toml").read_text())
+        package_data = config["tool"]["setuptools"]["package-data"]["journal_suggester"]
+        for name in package_data:
+            if not name.startswith("resources/"):
+                continue
+            with self.subTest(resource=name):
+                bundled = root / "journal_suggester" / name
+                canonical = root / name.removeprefix("resources/")
+                self.assertEqual(bundled.read_bytes(), canonical.read_bytes())
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
