@@ -36,7 +36,7 @@ PY
 journal-suggester serve --kev-run checkpoints/kev-math-journal-suggester
 ```
 
-The pinned backbone is downloaded on first load. Published test scores use B300. A separate [GB10 validation check](../results/deployment-validation.json) scored 76.1% Top 3 versus 76.2% on B300. The cleaned export and original checkpoint produced identical GB10 predictions. Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding from your laptop.
+The pinned backbone is downloaded on first load. Published test scores use B300. A separate [GB10 validation check](../results/deployment-validation.json) scored 76.1% Top 3 versus 76.2% on B300. The cleaned export and original checkpoint produced identical GB10 predictions. Inference pins the validated GB10 kernel settings so rebuilding the GPU cache does not change predictions. Open `http://127.0.0.1:8765` on the GPU machine, or use SSH port forwarding from your laptop.
 
 For optional similar papers, supply a directory containing `reference.jsonl` and its Qwen3-Embedding-8B vectors using `--split` and `--vectors`. Generate these vectors with `journal_suggester.gpu.embed_split` and `configs/models.json`. These examples do not affect journal ranking.
 

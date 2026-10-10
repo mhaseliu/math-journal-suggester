@@ -1,5 +1,14 @@
 {
   "checks_pass": true,
+  "kernel_cache_validation": {
+    "checks_pass": true,
+    "fresh_cache": true,
+    "inference_configurations_pinned": true,
+    "max_probability_delta": 0.0,
+    "top1_disagreements": 0,
+    "top3_set_disagreements": 0,
+    "validation_papers": 1000
+  },
   "manifest_sha256": "315fbd5e56dbe29fdaee915e8a2300d115afe4e865a4f93900ba435f2b987335",
   "max_probability_delta": 0.05713626742362976,
   "metrics": {

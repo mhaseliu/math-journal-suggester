@@ -84,9 +84,10 @@ def main():
             if not args.verification_fixture:
                 raise ValueError("Kev startup requires the verified parity fixtures")
             comparison = service.ranker.verify_reference(json.loads(args.verification_fixture.read_text()))
-            if not all(c['max_probability_delta'] <= 1e-6 and c['top1_matches'] and c['top3_set_matches'] for c in comparison):
+            passed = all(c['max_probability_delta'] <= 1e-6 and c['top1_matches'] and c['top3_set_matches'] for c in comparison)
+            print(json.dumps({"checkpoint_parity_pass": passed, "checks": comparison}), flush=True)
+            if not passed:
                 raise RuntimeError("GB10 checkpoint parity failed; refusing to serve")
-            print(json.dumps({"checkpoint_parity_pass": True, "checks": comparison}), flush=True)
         # Warm before opening the socket; tunnel users never trigger cold startup.
         service.suggest({"title": "Spectral gaps of finite graphs", "abstract":
                          "We study spectral gaps, random walks and mixing times on finite regular graphs."})

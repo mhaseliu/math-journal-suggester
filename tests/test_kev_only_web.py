@@ -1,11 +1,11 @@
 import copy
-from types import SimpleNamespace
+from types import SimpleNamespace, ModuleType
 import unittest
 from unittest.mock import Mock, patch
 
 from journal_suggester.io import journals
 from journal_suggester.journal_choice import build_request, ordered_journals
-from journal_suggester.web_ranker import KevOnlyRanker, WebsiteRanker
+from journal_suggester.web_ranker import KevOnlyRanker, WebsiteRanker, pin_gb10_inference_kernels, GB10_INFERENCE_KERNELS
 from journal_suggester.web_service import SearchService
 
 
@@ -13,6 +13,27 @@ QUERY = {'title': 'Spectral gaps of graphs', 'abstract': 'We prove bounds for sp
 
 
 class RecommendationTests(unittest.TestCase):
+    def test_gb10_kernel_pins_bypass_tuning_and_fail_closed(self):
+        modules, tuners = {}, []
+        for name, function, kwargs, warps, stages in GB10_INFERENCE_KERNELS:
+            selected = SimpleNamespace(kwargs=kwargs, num_warps=warps, num_stages=stages)
+            other = SimpleNamespace(kwargs=kwargs, num_warps=warps + 1, num_stages=stages)
+            tuner = SimpleNamespace(configs=[other, selected])
+            module = modules.setdefault(name, ModuleType(name))
+            setattr(module, function, tuner if function == 'l2norm_fwd_kernel' else SimpleNamespace(fn=tuner))
+            tuners.append((tuner, selected, other))
+        torch = SimpleNamespace(cuda=SimpleNamespace(get_device_name=lambda: 'NVIDIA GB10'))
+        with patch.dict('sys.modules', modules):
+            pin_gb10_inference_kernels(torch)
+            pin_gb10_inference_kernels(torch)
+            self.assertTrue(all(tuner.configs == [selected] for tuner, selected, _ in tuners))
+            tuners[-1][0].configs = [tuners[-1][2]]
+            with self.assertRaisesRegex(RuntimeError, 'configuration is unavailable'):
+                pin_gb10_inference_kernels(torch)
+        torch.cuda.get_device_name = lambda: 'NVIDIA B300'
+        with patch('importlib.import_module', side_effect=AssertionError('Must not change B300 kernels')):
+            pin_gb10_inference_kernels(torch)
+
     def setUp(self):
         self.ids = [j['journal_id'] for j in ordered_journals(journals())]
         self.probs = {j: (i+1)/4560 for i,j in enumerate(self.ids)}

@@ -15,6 +15,37 @@ CHECKPOINT_FILES = {"adapter_model.safetensors", "adapter_config.json", "head.pt
                     "tokenizer_config.json", "chat_template.jinja", "snapshot.json"}
 
 
+# These configurations reproduced the audited GB10 validation predictions.
+# Pinning bypasses timing-based autotuning, including an existing disk cache.
+GB10_INFERENCE_KERNELS = (
+    ('fla.ops.common.chunk_o', 'chunk_fwd_kernel_o', {'BK': 128, 'BV': 128}, 8, 3),
+    ('fla.ops.utils.cumsum', 'chunk_local_cumsum_scalar_kernel', {}, 4, 3),
+    ('fla.ops.common.chunk_delta_h', 'chunk_gated_delta_rule_fwd_kernel_h_blockdim64', {'BV': 32}, 2, 1),
+    ('fla.ops.gated_delta_rule.wy_fast', 'recompute_w_u_fwd_kernel', {}, 2, 2),
+    ('fla.ops.gated_delta_rule.chunk_fwd', 'chunk_gated_delta_rule_fwd_kkt_solve_kernel', {'BK': 64}, 1, 3),
+    ('fla.modules.l2norm', 'l2norm_fwd_kernel', {'BT': 32}, 8, 3),
+)
+
+
+def pin_gb10_inference_kernels(torch):
+    """Keep BF16 predictions independent of fresh-cache autotuning on GB10."""
+    if 'GB10' not in torch.cuda.get_device_name():
+        return
+    from importlib import import_module
+    selections = []
+    for module, name, kwargs, warps, stages in GB10_INFERENCE_KERNELS:
+        tuner = getattr(import_module(module), name)
+        if not hasattr(tuner, 'configs'):
+            tuner = tuner.fn
+        chosen = [c for c in tuner.configs if c.kwargs == kwargs
+                  and c.num_warps == warps and c.num_stages == stages]
+        if len(chosen) != 1:
+            raise RuntimeError(f'The validated GB10 FLA configuration is unavailable: {name}')
+        selections.append((tuner, chosen))
+    for tuner, chosen in selections:
+        tuner.configs = chosen
+
+
 def verify_checkpoint(path, specification, models):
     path = Path(path)
     if path.is_symlink() or (path / "manifest.json").is_symlink():
@@ -64,6 +95,7 @@ class WebsiteRanker:
         if any(inspect.getclosurevars(wrapper).nonlocals.get("implementation") is not expected
                for wrapper, expected in implementations):
             raise RuntimeError("The verified GB10 fast kernels are required for website Kev inference")
+        pin_gb10_inference_kernels(torch)
         self.checkpoint = Checkpoint(run)
         meta = self.checkpoint.meta
         if (meta.base != models["base_model"] or meta.base_revision != models["base_revision"]
