@@ -1,8 +1,8 @@
 # Math journal suggester
 
-Recommend math journals from a paper’s title and abstract using a fine-tuned Kev-4B model. Kev scores all 95 journal names directly.
+Recommend math journals from a paper’s title and abstract using a fine-tuned Kev-4B model. Kev was fine-tuned on 8,000 papers and scores all 95 journal names directly.
 
-| Test papers | Top 1 | Top 3 | Top 5 |
+| Original-journal matching · test papers | Top 1 | Top 3 | Top 5 |
 |---|---:|---:|---:|
 | 1,000 | **57.2%** | **78.9%** | **85.3%** |
 
